@@ -1,0 +1,38 @@
+<h1>New Lead</h1>
+<%= form_tag '/leads', method: :post do %>
+  <div>
+    <%= label_tag :name, "Name: " %>
+    <%= text_field_tag :name, @lead.name %>
+  </div>
+  <div>
+    <%= label_tag :job_title, "Job Title: " %>
+    <%= text_field_tag :job_title, @lead.job_title %>
+  </div>
+  <div>
+    <%= label_tag :company, "Company: " %>
+    <%= text_field_tag :company, @lead.company %>
+  </div>
+  <div>
+    <%= label_tag :email_address, "Email: " %>
+    <%= text_field_tag :email_address, @lead.email_address %>
+  </div>
+  <div>
+    <%= label_tag :phone, "Phone: " %>
+    <%= text_field_tag :phone, @lead.phone %>
+  </div>
+  <div>
+    <%= label_tag :notes, "Lead Notes: " %>
+    <%= text_field_tag :notes, @lead.notes %>
+  </div>
+  <div>
+    <%= label_tag :last_action, "Contact initated on: " %><span title="Initial contact includes LinkedIn Invite Sent, introduction email, Meet-up, etc. Please specify form of contact in the invitation notes."> ?</span>
+    <%= datetime_select(:last_action, :date, default: Time.zone.now) %>
+  </div>
+  <div>
+    <%= label_tag :invite_notes, "Invitaton Notes: " %>
+    <%= text_field_tag :invite_notes %>
+  </div>
+  <div>
+    <%= submit_tag "Submit" %>
+  </div>
+<% end %>

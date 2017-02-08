@@ -1,3 +1,81 @@
-// Place all the styles related to the Leads controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.lead-data {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.lead-name {
+  padding-left: 30px;
+  margin: 0;
+}
+
+.clear-float {
+  clear: both;
+}
+
+div.panel-heading h3 {
+  text-align: center;
+  margin: 0;
+  clear: both;
+}
+
+div.panel-body.main {
+  padding: 0;
+  clear: both;
+}
+
+a.float-right {
+  float: right;
+}
+
+a.icon {
+  font-size: 2em;
+}
+
+a.icon:hover {
+  color: red;
+}
+
+
+div.panel-body.main .well {
+  background-color: transparent;
+  border-color: transparent;
+  margin: 0;
+
+  p.date {
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #aaa;
+  }
+
+  p.notes {
+    clear: both;
+    margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 990px) {
+  a.float-right {
+    float: left !important;
+    padding-right: 10px;
+  }
+
+  p.date {
+    padding-bottom: 5px;
+    padding-top: 10px;
+  }
+}
+
+.interview {
+  box-shadow: none;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+div.panel.sub {
+  margin-bottom: 0;
+}
+
+.interview-plus {
+  padding-bottom: 19px;
+}

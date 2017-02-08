@@ -9,6 +9,16 @@
   </head>
 
   <body>
-    <%= yield %>
+    <section id="flash">
+        <% flash.each do |name, message| %>
+        <div class="alert alert-<%= name %> fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</span><span class="sr-only">Close</span></button>
+          <%= message.html_safe %>
+        </div>
+      <% end %>
+    </section>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

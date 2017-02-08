@@ -1,0 +1,499 @@
+<!-- LEAD INFORMATION -->
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default lead-data">
+      <div class="panel-heading">
+        <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "/leads/#{@lead.id}/edit", class: "float-right icon" %>
+        <h2 class="lead-name"><%= @lead.name %></h2>
+      </div>
+      <div class="panel-body clear-float">
+        <dl class="dl-horizontal">
+          <dt>Job Title: </dt>
+          <dd><%= @lead.job_title %></dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Company: </dt>
+          <dd><%= @lead.company %></dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Email: </dt>
+          <dd><%= @lead.email_address %></dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Phone: </dt>
+          <dd><%= @lead.phone %></dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Notes: </dt>
+          <dd><%= @lead.notes %></dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Last Updated: </dt>
+          <dd><%= @lead.last_action.strftime("%b %e, %Y -- %l:%M%P") %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END LEAD INFORMATION -->
+
+<!-- LEAD STATUS PROGRESS BAR -->
+<div class="row">
+  <div class="col-md-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>LinkedIn Invite Sent</h3>
+        </div>
+        <div class="panel-body main">
+        <% if @lead.invite %>
+          <div class="well">
+            <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Invite-Edit-#{@lead.id}"}, class: "float-right icon" %>
+            <p class="date"><%= @lead.invite.date.strftime("%b %e, %Y %l:%M%P") %></p>
+            <p class="notes"><%= @lead.invite.notes %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Connected On LinkedIn</h3>
+        </div>
+        <div class="panel-body main">
+          <div class="well">
+            <% if @lead.connection %>
+              <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Connect-Edit-#{@lead.id}"}, class: "float-right icon" %>
+              <p class="date"><%= @lead.connection.date.strftime("%b %e, %Y %l:%M%P") %></p>
+              <p class="notes"><%= @lead.connection.notes %></p>
+            <% elsif @lead.invite %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Connect-Create-#{@lead.id}"}, class: "icon"  %>
+              </div>
+            <% else %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Complete-Prior-Steps"}, class: "icon"  %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Email Sent</h3>
+        </div>
+        <div class="panel-body main">
+          <div class="well">
+            <% if @lead.email %>
+              <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Email-Edit-#{@lead.id}"}, class: "float-right icon" %>
+              <p class="date"><%= @lead.email.date.strftime("%b %e, %Y %l:%M%P") %></p>
+              <p class="notes"><%= @lead.email.notes %></p>
+            <% elsif @lead.connection %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Email-Create-#{@lead.id}"}, class: "icon"  %>
+              </div>
+            <% else %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Complete-Prior-Steps"}, class: "icon"  %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Set Meeting</h3>
+        </div>
+        <div class="panel-body main">
+          <div class="well">
+            <% if @lead.meeting %>
+              <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Meeting-Edit-#{@lead.id}"}, class: "float-right icon" %>
+              <p class="date"><%= @lead.meeting.date.strftime("%b %e, %Y %l:%M%P") %></p>
+              <p class="notes"><%= @lead.meeting.notes %></p>
+            <% elsif @lead.email %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Meeting-Create-#{@lead.id}"}, class: "icon"  %>
+              </div>
+            <% else %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Complete-Prior-Steps"}, class: "icon"  %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Set Interview</h3>
+        </div>
+        <div class="panel-body main">
+          <div class="well">
+            <% if @lead.interviews.count > 0 %>
+            <div class="text-center interview-plus">
+              <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Interview-Create-#{@lead.id}"}, class: "icon"  %>
+            </div>
+              <% @lead.interviews.each do |interview| %>
+                <div class="well interview">
+                  <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Interview-Edit-#{@lead.id}"}, class: "float-right icon" %>
+                  <p class="date"><%= interview.date.strftime("%b %e, %Y %l:%M%P") %></p>
+                  <p class="notes"><%= interview.notes %></p>
+                </div>
+              <% end %>
+            <% elsif @lead.meeting %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Interview-Create-#{@lead.id}"}, class: "icon"  %>
+              </div>
+            <% else %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Complete-Prior-Steps"}, class: "icon"  %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Job Offer Made</h3>
+        </div>
+        <div class="panel-body main">
+          <div class="well">
+            <% if @lead.offer %>
+              <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Offer-Edit-#{@lead.id}"}, class: "float-right icon" %>
+              <p class="date"><%= @lead.offer.date.strftime("%b %e, %Y %l:%M%P") %></p>
+              <p class="notes"><%= @lead.offer.notes %></p>
+            <% elsif @lead.email %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Offer-Create-#{@lead.id}"}, class: "icon"  %>
+              </div>
+            <% else %>
+              <div class="text-center">
+                <%= link_to "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe, "#", data: {toggle: "modal", target: "#Complete-Prior-Steps"}, class: "icon"  %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END LEAD STATUS PROGRESS BAR -->
+
+<div id="Invite-Edit-<%= @lead.id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit LinkedIn Invitation Notes</h3>
+        <p><%= @lead.invite.date.strftime("%b %e, %Y %l:%M%P") %></p>
+      </div>
+      <div class="modal-body">
+        <%= form_tag "/invites/#{@lead.invite.id}", method: :patch do %>
+          <div class="form-group">
+            <%= label_tag :notes %>
+            <%= text_area_tag :notes, @lead.invite.notes %>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <%= submit_tag "Submit", class: "btn btn-info"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="Connect-Create-<%= @lead.id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Connected On LinkedIn</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_tag '/connections', method: :post do %>
+          <div>
+            <%= hidden_field_tag :lead_id, @lead.id %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :notes %>
+            <%= text_area_tag :notes %>
+          </div>
+          <div>
+            <%= label_tag :date, "Date Invite Accepted" %>
+            <%= datetime_select(:date, :date) %>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <%= submit_tag "Submit", class: "btn btn-info"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @lead.connection %>
+  <div id="Connect-Edit-<%= @lead.id %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Connection Notes</h3>
+          <p><%= @lead.connection.date.strftime("%b %e, %Y %l:%M%P") %></p>
+        </div>
+        <div class="modal-body">
+          <%= form_tag "/connections/#{@lead.connection.id}", method: :patch do %>
+            <div class="form-group">
+              <%= label_tag :notes %>
+              <%= text_area_tag :notes, @lead.connection.notes %>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <%= submit_tag "Submit", class: "btn btn-info"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="Email-Create-<%= @lead.id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Email Sent</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_tag '/emails', method: :post do %>
+          <div>
+            <%= hidden_field_tag :lead_id, @lead.id %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :notes %>
+            <%= text_area_tag :notes %>
+          </div>
+          <div>
+            <%= label_tag :date, "Date Invite Accepted" %>
+            <%= datetime_select(:date, :date) %>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <%= submit_tag "Submit", class: "btn btn-info"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @lead.email %>
+  <div id="Email-Edit-<%= @lead.id %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Email Notes</h3>
+          <p><%= @lead.email.date.strftime("%b %e, %Y %l:%M%P") %></p>
+        </div>
+        <div class="modal-body">
+          <%= form_tag "/emails/#{@lead.email.id}", method: :patch do %>
+            <div class="form-group">
+              <%= label_tag :notes %>
+              <%= text_area_tag :notes, @lead.email.notes %>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <%= submit_tag "Submit", class: "btn btn-info"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="Meeting-Create-<%= @lead.id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Meeting Date Set</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_tag '/meetings', method: :post do %>
+          <div>
+            <%= hidden_field_tag :lead_id, @lead.id %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :notes %>
+            <%= text_area_tag :notes %>
+          </div>
+          <div>
+            <%= label_tag :date, "Date Invite Accepted" %>
+            <%= datetime_select(:date, :date) %>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <%= submit_tag "Submit", class: "btn btn-info"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @lead.meeting %>
+  <div id="Meeting-Edit-<%= @lead.id %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Meeting Notes</h3>
+          <p><%= @lead.meeting.date.strftime("%b %e, %Y %l:%M%P") %></p>
+        </div>
+        <div class="modal-body">
+          <%= form_tag "/meetings/#{@lead.meeting.id}", method: :patch do %>
+            <div class="form-group">
+              <%= label_tag :notes %>
+              <%= text_area_tag :notes, @lead.meeting.notes %>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <%= submit_tag "Submit", class: "btn btn-info"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="Interview-Create-<%= @lead.id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Interview Set</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_tag '/interviews', method: :post do %>
+          <div>
+            <%= hidden_field_tag :lead_id, @lead.id %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :notes %>
+            <%= text_area_tag :notes %>
+          </div>
+          <div>
+            <%= label_tag :date, "Date Invite Accepted" %>
+            <%= datetime_select(:date, :date) %>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <%= submit_tag "Submit", class: "btn btn-info"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @lead.interviews %>
+  <% @lead.interviews.each do |interview| %>
+    <div id="Interview-Edit-<%= interview.id %>" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Edit Interview Notes</h3>
+            <p><%= interview.date.strftime("%b %e, %Y %l:%M%P") %></p>
+          </div>
+          <div class="modal-body">
+            <%= form_tag "/interviews/#{interview.id}", method: :patch do %>
+              <div class="form-group">
+                <%= label_tag :notes %>
+                <%= text_area_tag :notes, interview.notes %>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <%= submit_tag "Submit", class: "btn btn-info"%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div id="Offer-Create-<%= @lead.id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Job Offer Made</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_tag '/offers', method: :post do %>
+          <div>
+            <%= hidden_field_tag :lead_id, @lead.id %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :notes %>
+            <%= text_area_tag :notes %>
+          </div>
+          <div>
+            <%= label_tag :date, "Date Invite Accepted" %>
+            <%= datetime_select(:date, :date) %>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <%= submit_tag "Submit", class: "btn btn-info"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @lead.offer %>
+  <div id="Offer-Edit-<%= @lead.id %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Offer Notes</h3>
+          <p><%= @lead.offer.date.strftime("%b %e, %Y %l:%M%P") %></p>
+        </div>
+        <div class="modal-body">
+          <%= form_tag "/offers/#{@lead.offer.id}", method: :patch do %>
+            <div class="form-group">
+              <%= label_tag :notes %>
+              <%= text_area_tag :notes, @lead.offer.notes %>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <%= submit_tag "Submit", class: "btn btn-info"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="Complete-Prior-Steps" class="modal fade" role="dialog" style="background-color: red;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>You must complete all prior steps before you can move your lead to this status.</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
