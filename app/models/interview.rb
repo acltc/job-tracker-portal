@@ -2,6 +2,6 @@ class Interview < ApplicationRecord
   belongs_to :lead
 
   def name
-    return "Interview Set"
+    return "Interview"
   end
 end

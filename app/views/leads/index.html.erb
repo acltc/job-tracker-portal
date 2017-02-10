@@ -1,0 +1,28 @@
+<div id="leads-index">
+  <h2>My Leads</h2>
+  <input v-model="searchField">
+  <div class="table-responsive">
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th @click="orderByField('name')">Name</th>
+        <th @click="orderByField('company')">Company</th>
+        <th @click="orderByField('job_title')">Job Title</th>
+        <th @click="orderByField('email_address')">Email</th>
+        <th @click="orderByField('phone')">Phone</th>
+        <th @click="orderByField('notes')">Notes</th>
+        <th @click="orderByField('last_action')">Last Updated</th>
+        <th @click="orderByField('current_step')">Current Step</th>
+      </tr>
+      <tr v-for="lead in tableFilter" :class="lead.current_step.toLowerCase()">
+        <td><a v-bind:href="urlBuilder(lead.id)">{{ lead.name }}</a></td>
+        <td>{{ lead.company }}</td>
+        <td>{{ lead.job_title }}</td>
+        <td>{{ lead.email_address }}</td>
+        <td>{{ lead.phone }}</td>
+        <td>{{ lead.notes_preview }}</td>
+        <td>{{ lead.last_action_date_only }}
+        <td>{{ lead.current_step }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

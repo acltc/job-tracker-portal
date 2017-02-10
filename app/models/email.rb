@@ -2,6 +2,6 @@ class Email < ApplicationRecord
   belongs_to :lead
 
   def name
-    return "Email Sent"
+    return "Email"
   end
 end

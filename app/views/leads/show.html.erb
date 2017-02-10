@@ -3,7 +3,7 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default lead-data">
       <div class="panel-heading">
-        <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, "/leads/#{@lead.id}/edit", class: "float-right icon" %>
+        <%= link_to "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>".html_safe, edit_user_lead_path(@user.id, @lead.id), class: "float-right icon" %>
         <h2 class="lead-name"><%= @lead.name %></h2>
       </div>
       <div class="panel-body clear-float">
@@ -29,7 +29,7 @@
         </dl>
         <dl class="dl-horizontal">
           <dt>Last Updated: </dt>
-          <dd><%= @lead.last_action.strftime("%b %e, %Y -- %l:%M%P") %></dd>
+          <dd><%= @lead.last_action_friendly %></dd>
         </dl>
       </div>
     </div>
@@ -198,7 +198,7 @@
         <p><%= @lead.invite.date.strftime("%b %e, %Y %l:%M%P") %></p>
       </div>
       <div class="modal-body">
-        <%= form_tag "/invites/#{@lead.invite.id}", method: :patch do %>
+        <%= form_tag "/users/#{@user.id}/invites/#{@lead.invite.id}", method: :patch do %>
           <div class="form-group">
             <%= label_tag :notes %>
             <%= text_area_tag :notes, @lead.invite.notes %>
@@ -220,7 +220,7 @@
         <h3>Connected On LinkedIn</h3>
       </div>
       <div class="modal-body">
-        <%= form_tag '/connections', method: :post do %>
+        <%= form_tag "/users/#{@user.id}/connections", method: :post do %>
           <div>
             <%= hidden_field_tag :lead_id, @lead.id %>
           </div>
@@ -247,11 +247,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
+          <p><%= @user.id %></p>
           <h3>Edit Connection Notes</h3>
           <p><%= @lead.connection.date.strftime("%b %e, %Y %l:%M%P") %></p>
         </div>
         <div class="modal-body">
-          <%= form_tag "/connections/#{@lead.connection.id}", method: :patch do %>
+          <%= form_tag "/users/#{@user.id}/connections/#{@lead.connection.id}", method: :patch do %>
             <div class="form-group">
               <%= label_tag :notes %>
               <%= text_area_tag :notes, @lead.connection.notes %>
@@ -274,7 +275,7 @@
         <h3>Email Sent</h3>
       </div>
       <div class="modal-body">
-        <%= form_tag '/emails', method: :post do %>
+        <%= form_tag "/users/#{@user.id}/emails", method: :post do %>
           <div>
             <%= hidden_field_tag :lead_id, @lead.id %>
           </div>
@@ -305,7 +306,7 @@
           <p><%= @lead.email.date.strftime("%b %e, %Y %l:%M%P") %></p>
         </div>
         <div class="modal-body">
-          <%= form_tag "/emails/#{@lead.email.id}", method: :patch do %>
+          <%= form_tag "/users/#{@user.id}/emails/#{@lead.email.id}", method: :patch do %>
             <div class="form-group">
               <%= label_tag :notes %>
               <%= text_area_tag :notes, @lead.email.notes %>
@@ -328,7 +329,7 @@
         <h3>Meeting Date Set</h3>
       </div>
       <div class="modal-body">
-        <%= form_tag '/meetings', method: :post do %>
+        <%= form_tag "/users/#{@user.id}/meetings", method: :post do %>
           <div>
             <%= hidden_field_tag :lead_id, @lead.id %>
           </div>
@@ -359,16 +360,17 @@
           <p><%= @lead.meeting.date.strftime("%b %e, %Y %l:%M%P") %></p>
         </div>
         <div class="modal-body">
-          <%= form_tag "/meetings/#{@lead.meeting.id}", method: :patch do %>
+          <%= form_tag "/users/#{@user.id}/meetings/#{@lead.meeting.id}", method: :patch do %>
             <div class="form-group">
               <%= label_tag :notes %>
               <%= text_area_tag :notes, @lead.meeting.notes %>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <%= submit_tag "Submit", class: "btn btn-info"%>
-          <% end %>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <%= submit_tag "Submit", class: "btn btn-info"%>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
@@ -382,7 +384,7 @@
         <h3>Interview Set</h3>
       </div>
       <div class="modal-body">
-        <%= form_tag '/interviews', method: :post do %>
+        <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
           <div>
             <%= hidden_field_tag :lead_id, @lead.id %>
           </div>
@@ -414,7 +416,7 @@
             <p><%= interview.date.strftime("%b %e, %Y %l:%M%P") %></p>
           </div>
           <div class="modal-body">
-            <%= form_tag "/interviews/#{interview.id}", method: :patch do %>
+            <%= form_tag "/users/#{@user.id}/interviews/#{interview.id}", method: :patch do %>
               <div class="form-group">
                 <%= label_tag :notes %>
                 <%= text_area_tag :notes, interview.notes %>
@@ -438,7 +440,7 @@
         <h3>Job Offer Made</h3>
       </div>
       <div class="modal-body">
-        <%= form_tag '/offers', method: :post do %>
+        <%= form_tag "/users/#{@user.id}/offers", method: :post do %>
           <div>
             <%= hidden_field_tag :lead_id, @lead.id %>
           </div>
@@ -469,7 +471,7 @@
           <p><%= @lead.offer.date.strftime("%b %e, %Y %l:%M%P") %></p>
         </div>
         <div class="modal-body">
-          <%= form_tag "/offers/#{@lead.offer.id}", method: :patch do %>
+          <%= form_tag "/users/#{@user.id}/offers/#{@lead.offer.id}", method: :patch do %>
             <div class="form-group">
               <%= label_tag :notes %>
               <%= text_area_tag :notes, @lead.offer.notes %>
