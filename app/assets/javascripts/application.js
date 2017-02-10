@@ -11,8 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
+//= require jquery_uj
 //= require turbolinks
+//= require materialize-sprockets
 //= require vue
 //= require lodash.min
 //= require_tree .
