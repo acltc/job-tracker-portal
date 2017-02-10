@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_uj
 //= require turbolinks
 //= require materialize-sprockets
 //= require vue
