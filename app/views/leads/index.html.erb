@@ -1,20 +1,33 @@
 <div id="leads-index" data-turbolinks="false">
-  <h2>My Leads</h2>
-  <input v-model="searchField">
-  <div class="table-responsive">
-    <table class="table table-bordered table-condensed">
-      <tr>
-        <th @click="orderByField('name')">Name</th>
-        <th @click="orderByField('company')">Company</th>
-        <th @click="orderByField('job_title')">Job Title</th>
-        <th @click="orderByField('email_address')">Email</th>
-        <th @click="orderByField('phone')">Phone</th>
-        <th @click="orderByField('notes')">Notes</th>
-        <th @click="orderByField('last_action')">Last Updated</th>
-        <th @click="orderByField('current_step')">Current Step</th>
-      </tr>
+  <h2 class="center-align">My Leads</h2>
+  <div class="row">
+    <div class="input-field col s6 offset-s3">
+      <div class="valign-wrapper">
+        <i class="material-icons prefix valign" style="font-size: 2em;">search</i>
+        <input id="dashboard-search" placeholder="Search Dashboard" v-model="searchField">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <table class="bordered responsive-table">
+      <thead>
+          <tr>
+            <th data-field="edit"></th>
+            <th data-field="view"></th>
+            <th data-field="name" @click="orderByField('name')">Name <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th data-field="company" @click="orderByField('company')">Company <i class="fa fa-sort" aria-hidden="true"></th>
+            <th data-field="job_title" @click="orderByField('job_title')">Job Title <i class="fa fa-sort" aria-hidden="true"></th>
+            <th data-field="email_address" @click="orderByField('email_address')">Email <i class="fa fa-sort" aria-hidden="true"></th>
+            <th data-field="phone" @click="orderByField('phone')">Phone <i class="fa fa-sort" aria-hidden="true"></th>
+            <th data-field="notes" @click="orderByField('notes')">Notes <i class="fa fa-sort" aria-hidden="true"></th>
+            <th data-field="last_action" @click="orderByField('last_action')">Last Updated <i class="fa fa-sort" aria-hidden="true"></th>
+            <th data-field="current_step" @click="orderByField('current_step')">Current Step <i class="fa fa-sort" aria-hidden="true"></th>
+          </tr>
+      </thead>
       <tr v-for="lead in tableFilter" :class="lead.current_step.toLowerCase()">
-        <td><a v-bind:href="urlBuilder(lead.id)">{{ lead.name }}</a></td>
+        <td><a v-bind:href="editUrlBuilder(lead.id)"><i class="material-icons">mode_edit</i></td>
+        <td><a v-bind:href="viewUrlBuilder(lead.id)"><i class="material-icons">visibility</i></td>
+        <td>{{ lead.name }}</a></td>
         <td>{{ lead.company }}</td>
         <td>{{ lead.job_title }}</td>
         <td>{{ lead.email_address }}</td>

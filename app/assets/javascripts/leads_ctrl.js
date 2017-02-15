@@ -52,8 +52,11 @@ $(document).ready(function() {
           return searchMatch;
         })
       },
-      urlBuilder: function(leadId) {
+      viewUrlBuilder: function(leadId) {
         return "/users/" + gon.user_id + "/leads/" + leadId;
+      },
+      editUrlBuilder: function(leadId) {
+        return "/users/" + gon.user_id + "/leads/" + leadId +"/edit";
       }
     }
   })

@@ -1,6 +1,6 @@
 <h1>New Lead</h1>
 <%= form_tag "/users/#{@user.id}/leads", method: :post do %>
-  <div>
+  <div class="input-field">
     <%= label_tag :name, "Name: " %>
     <%= text_field_tag :name, @lead.name %>
   </div>
@@ -26,7 +26,7 @@
   </div>
   <div>
     <%= label_tag :last_action, "Contact initated on: " %><span title="Initial contact includes LinkedIn Invite Sent, introduction email, Meet-up, etc. Please specify form of contact in the invitation notes."> ?</span>
-    <%= datetime_select(:last_action, :date, default: Time.zone.now) %>
+    <input type="date" class="datepicker primary-color">
   </div>
   <div>
     <%= label_tag :invite_notes, "Invitaton Notes: " %>
@@ -36,3 +36,10 @@
     <%= submit_tag "Submit" %>
   </div>
 <% end %>
+
+<script>
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+</script>

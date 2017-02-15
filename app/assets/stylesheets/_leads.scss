@@ -1,0 +1,158 @@
+@import "_variables";
+
+/********** LEADS INDEX TABLE **********/
+
+.invite {
+  background-color: rgba(137, 22, 252, .1)
+}
+
+.connection {
+  background-color: rgba(229, 58, 182, .1)
+}
+
+.email {
+  background-color: rgba(253, 150, 64, .1)
+}
+
+.meeting {
+  background-color: rgba(207, 253, 62, .1)
+}
+
+.interview {
+  background-color: rgba(58, 229, 174, .1)
+}
+
+.offer {
+  background-color: rgba(76, 93, 252, .1)
+}
+
+
+/********** LEAD SHOW CONTACT CARD **********/
+.card-date {
+  float: right;
+  font-size: .8rem;
+  color: #999 !important;
+}
+
+.card-title {
+  font-weight: 800 !important;
+  font-size: 2rem !important;
+  margin-top: 30px;
+  margin-bottom: 0;
+  clear: both;
+}
+
+.lead-label {
+  padding-right: 10px;
+  font-weight: 500;
+}
+
+/********** LEAD SHOW STATUS ACCORDION **********/
+.collapsible-body {
+  padding: 2rem;
+}
+
+.lead-badge i {
+  font-size: 1rem;
+  margin: 0;
+}
+
+
+
+
+
+.clear-float {
+  clear: both;
+}
+div.panel-heading h3 {
+  text-align: center;
+  margin: 0;
+  clear: both;
+}
+
+div.panel-body.main {
+  padding: 0;
+  clear: both;
+}
+
+a.float-right {
+  float: right;
+}
+
+a.icon {
+  font-size: 2em;
+}
+
+a.icon:hover {
+  color: red;
+}
+
+
+div.panel-body.main .well {
+  background-color: transparent;
+  border-color: transparent;
+  margin: 0;
+
+  p.date {
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #aaa;
+  }
+
+  p.notes {
+    clear: both;
+    margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 990px) {
+  a.float-right {
+    float: left !important;
+    padding-right: 10px;
+  }
+
+  p.date {
+    padding-bottom: 5px;
+    padding-top: 10px;
+  }
+}
+
+.interview {
+  box-shadow: none;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+div.panel.sub {
+  margin-bottom: 0;
+}
+
+.interview-plus {
+  padding-bottom: 19px;
+}
+
+
+.picker__weekday-display {
+  background-color: $primary-color-dark !important;
+}
+
+.picker__date-display {
+  background-color: $primary-color !important;
+}
+
+.picker__nav--prev:hover, .picker__nav--next:hover {
+  background: rgba($accent-color, .3) !important;
+}
+
+.picker__day.picker__day--today {
+  color: $accent-color !important;
+}
+
+.btn-flat.picker__today, .btn-flat.picker__close {
+  color: $accent-color !important;
+}
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+  background-color: $accent-color !important;
+  color: #ffffff !important;
+}
