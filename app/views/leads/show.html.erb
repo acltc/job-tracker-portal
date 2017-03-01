@@ -1,315 +1,84 @@
 <!-- LEAD INFORMATION -->
-<div class="row">
-  <div class="col s12 m12 l6">
-    <div class="card">
-      <div class="container">
-        <div class="card-header">
-          <p class="card-date">Last Updated: <%= @lead.last_action_friendly %></p>
-          <p class="card-title"><%= @lead.name.upcase %></p>
-        </div>
-        <div class="card-content">
-          <div class="row">
-            <div class="col s4 right-align">
-              <span class="lead-label">Job Title:</span>
-            </div>
-            <div class="col s8">
-              <p><%= @lead.job_title %></p>
-            </div>
+<div class="lead-show">
+  <div class="row">
+    <div class="col s12 m12 l6">
+      <div class="card">
+        <div class="container">
+          <div class="card-header">
+            <p class="card-date">Last Updated: <%= @lead.last_action_friendly %></p>
+            <p class="card-title"><%= @lead.name.upcase %></p>
           </div>
-          <div class="row">
-            <div class="col s4 right-align">
-              <span class="lead-label">Company:</span>
+          <div class="card-content">
+            <div class="row">
+              <div class="col s4 right-align">
+                <span class="lead-label">Job Title:</span>
+              </div>
+              <div class="col s8">
+                <p><%= @lead.job_title %></p>
+              </div>
             </div>
-            <div class="col s8">
-              <p><%= @lead.company %></p>
+            <div class="row">
+              <div class="col s4 right-align">
+                <span class="lead-label">Company:</span>
+              </div>
+              <div class="col s8">
+                <p><%= @lead.company %></p>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col s4 right-align">
-              <span class="lead-label">Email:</span>
+            <div class="row">
+              <div class="col s4 right-align">
+                <span class="lead-label">Email:</span>
+              </div>
+              <div class="col s8">
+                <p><%= @lead.email_address %></p>
+              </div>
             </div>
-            <div class="col s8">
-              <p><%= @lead.email_address %></p>
+            <div class="row">
+              <div class="col s4 right-align">
+                <span class="lead-label">Phone:</span>
+              </div>
+              <div class="col s8">
+                <p><%= @lead.phone %></p>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col s4 right-align">
-              <span class="lead-label">Phone:</span>
-            </div>
-            <div class="col s8">
-              <p><%= @lead.phone %></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s4 right-align">
-              <span class="lead-label">Notes:</span>
-            </div>
-            <div class="col s8">
-              <p><%= @lead.notes %></p>
+            <div class="row">
+              <div class="col s4 right-align">
+                <span class="lead-label">Notes:</span>
+              </div>
+              <div class="col s8">
+                <p><%= @lead.notes %></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-<!-- END LEAD INFORMATION -->
+  <!-- END LEAD INFORMATION -->
 
-  <div class="col s12 m12 l6">
-    <ul class="collapsible popout" data-collapsible="expandable">
-      <li>
-        <div class="collapsible-header">
-          <% if @lead.invite %>
-            <span class="new badge red" data-badge-caption=""><%= @lead.invite.date.strftime("%b %e") %></span>
-          <% end %>
-          <i class="fa fa-paper-plane" aria-hidden="true"></i>
-          LinkedIn Invite Sent
-        </div>
-        <div class="collapsible-body">
-          <span>
+    <div class="col s12 m12 l6">
+      <ul class="collapsible popout" data-collapsible="expandable">
+        <li>
+          <div class="collapsible-header">
             <% if @lead.invite %>
-              <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                  <div class="collapsible-header">
-                    <span class="new badge accent-color lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span><%= @lead.invite.notes %>
-                  </div>
-                  <div class="collapsible-body">
-                    <span>
-                      <%= form_tag "/users/#{@user.id}/invites/#{@lead.invite.id}", method: :patch do %>
-                        <div class="form-group">
-                          <%= label_tag :notes %>
-                          <%= text_area_tag :notes, @lead.invite.notes %>
-                        </div>
-                        <div>
-                          <%= submit_tag "Submit", class: "btn btn-info"%>
-                        </div>
-                      <% end %>
-                    </span>
-                  </div>
-                </li>
-              </ul>
+              <span class="new badge" data-badge-caption=""><%= @lead.invite.date.strftime("%b %e") %></span>
             <% end %>
-          </span>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <% if @lead.connection %>
-            <span class="new badge" data-badge-caption=""><%= @lead.connection.date.strftime("%b %e") %></span>
-          <% end %>
-          <i class="fa fa-user-plus" aria-hidden="true"></i>
-          Connected On LinkedIn
-        </div>
-        <div class="collapsible-body">
-          <span>
-            <div class="well">
-              <% if @lead.connection %>
-              <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                  <div class="collapsible-header">
-                    <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span><%= @lead.connection.notes %>
-                  </div>
-                  <div class="collapsible-body">
-                    <span>
-                      <%= form_tag "/users/#{@user.id}/connections/#{@lead.connection.id}", method: :patch do %>
-                        <div class="form-group">
-                          <%= label_tag :notes %>
-                          <%= text_area_tag :notes, @lead.connection.notes %>
-                        </div>
-                        <div>
-                          <%= submit_tag "Submit", class: "btn btn-info"%>
-                        </div>
-                      <% end %>
-                    </span>
-                  </div>
-                </li>
-              </ul>
-              <% elsif @lead.invite %>
-                <%= form_tag "/users/#{@user.id}/connections", method: :post do %>
-                  <div>
-                    <%= hidden_field_tag :lead_id, @lead.id %>
-                  </div>
-                  <div class="form-group">
-                    <%= label_tag :notes %>
-                    <%= text_area_tag :notes %>
-                  </div>
-                  <div>
-                    <%= label_tag :date, "Date Invite Accepted" %>
-                    <%= datetime_select(:date, :date) %>
-                  </div>
-                  <div>
-                    <%= submit_tag "Submit", class: "btn btn-info"%>
-                  </div>
-                <% end %>
-              <% else %>
-                <p>All prior steps will need to be completed before this step can be logged.</p>
-              <% end %>
-            </div>
-          </span>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <% if @lead.email %>
-            <span class="new badge" data-badge-caption=""><%= @lead.email.date.strftime("%b %e") %></span>
-          <% end %>
-          <i class="fa fa-envelope" aria-hidden="true"></i>
-          Email Sent
-        </div>
-        <div class="collapsible-body">
-          <span>
-            <div class="well">
-              <% if @lead.email %>
-              <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                  <div class="collapsible-header">
-                    <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                    <%= @lead.email.notes %>
-                  </div>
-                  <div class="collapsible-body">
-                    <span>
-                      <%= form_tag "/users/#{@user.id}/emails/#{@lead.email.id}", method: :patch do %>
-                        <div class="form-group">
-                          <%= label_tag :notes %>
-                          <%= text_area_tag :notes, @lead.email.notes %>
-                        </div>
-                        <div>
-                          <%= submit_tag "Submit", class: "btn btn-info"%>
-                        </div>
-                      <% end %>
-                    </span>
-                  </div>
-                </li>
-              </ul>
-              <% elsif @lead.connection %>
-                <%= form_tag "/users/#{@user.id}/emails", method: :post do %>
-                  <div>
-                    <%= hidden_field_tag :lead_id, @lead.id %>
-                  </div>
-                  <div class="form-group">
-                    <%= label_tag :notes %>
-                    <%= text_area_tag :notes %>
-                  </div>
-                  <div>
-                    <%= label_tag :date, "Date Invite Accepted" %>
-                    <%= datetime_select(:date, :date) %>
-                  </div>
-                  <div>
-                    <%= submit_tag "Submit", class: "btn btn-info"%>
-                  </div>
-                <% end %>
-              <% else %>
-                <p>All prior steps will need to be completed before this step can be logged.</p>
-              <% end %>
-            </div>
-          </span>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <% if @lead.meeting %>
-            <span class="new badge" data-badge-caption=""><%= @lead.meeting.date.strftime("%b %e") %></span>
-          <% end %>
-          <i class="fa fa-map-marker" aria-hidden="true"></i>
-          Set Meeting
-        </div>
-        <div class="collapsible-body">
-          <span>
-            <div class="well">
-              <% if @lead.meeting %>
-              <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                  <div class="collapsible-header">
-                    <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                    <%= @lead.meeting.notes %>
-                  </div>
-                  <div class="collapsible-body">
-                    <span>
-                      <%= form_tag "/users/#{@user.id}/meetings/#{@lead.meeting.id}", method: :patch do %>
-                        <div class="form-group">
-                          <%= label_tag :notes %>
-                          <%= text_area_tag :notes, @lead.meeting.notes %>
-                        </div>
-                        <div>
-                          <%= submit_tag "Submit", class: "btn btn-info"%>
-                        </div>
-                      <% end %>
-                    </span>
-                  </div>
-                </li>
-              </ul>
-              <% elsif @lead.email %>
-                <%= form_tag "/users/#{@user.id}/meetings", method: :post do %>
-                  <div>
-                    <%= hidden_field_tag :lead_id, @lead.id %>
-                  </div>
-                  <div class="form-group">
-                    <%= label_tag :notes %>
-                    <%= text_area_tag :notes %>
-                  </div>
-                  <div>
-                    <%= label_tag :date, "Date Invite Accepted" %>
-                    <%= datetime_select(:date, :date) %>
-                  </div>
-                  <div>
-                    <%= submit_tag "Submit", class: "btn btn-info"%>
-                  </div>
-                <% end %>
-              <% else %>
-                <p>All prior steps will need to be completed before this step can be logged.</p>
-              <% end %>
-            </div>
-          </span>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <% if @lead.interviews.count > 0 %>
-            <span class="new badge" data-badge-caption=""><%= @lead.interviews.last.date.strftime("%b %e") %></span>
-          <% end %>
-          <i class="material-icons">question_answer</i>
-          Set Interview
-        </div>
-        <div class="collapsible-body">
-          <span>
-            <% if @lead.interviews.count > 0 %>
-              <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                  <div class="collapsible-header"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                  <div class="collapsible-body">
-                    <span>
-                      <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
-                        <div>
-                          <%= hidden_field_tag :lead_id, @lead.id %>
-                        </div>
-                        <div class="form-group">
-                          <%= label_tag :notes %>
-                          <%= text_area_tag :notes %>
-                        </div>
-                        <div>
-                          <%= label_tag :date, "Date Invite Accepted" %>
-                          <%= datetime_select(:date, :date) %>
-                        </div>
-                        <div>
-                          <%= submit_tag "Submit", class: "btn btn-info"%>
-                        </div>
-                      <% end %>
-                    </span>
-                  </div>
-                </li>
-              </ul>
-              <% @lead.interviews.each do |interview| %>
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            LinkedIn Invite Sent
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <% if @lead.invite %>
                 <ul class="collapsible" data-collapsible="accordion">
                   <li>
                     <div class="collapsible-header">
-                      <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                      <%= interview.notes %>
+                      <span class="new badge accent-color lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span><%= @lead.invite.notes %>
                     </div>
                     <div class="collapsible-body">
                       <span>
-                        <%= form_tag "/users/#{@user.id}/interviews/#{interview.id}", method: :patch do %>
+                        <%= form_tag "/users/#{@user.id}/invites/#{@lead.invite.id}", method: :patch do %>
                           <div class="form-group">
                             <%= label_tag :notes %>
-                            <%= text_area_tag :notes, interview.notes %>
+                            <%= text_area_tag :notes, @lead.invite.notes %>
                           </div>
                           <div>
                             <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -320,64 +89,240 @@
                   </li>
                 </ul>
               <% end %>
-            <% elsif @lead.meeting %>
-              <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
-                <div>
-                  <%= hidden_field_tag :lead_id, @lead.id %>
-                </div>
-                <div class="form-group">
-                  <%= label_tag :notes %>
-                  <%= text_area_tag :notes %>
-                </div>
-                <div>
-                  <%= label_tag :date, "Date Invite Accepted" %>
-                  <%= datetime_select(:date, :date) %>
-                </div>
-                <div>
-                  <%= submit_tag "Submit", class: "btn btn-info"%>
-                </div>
-              <% end %>
-            <% else %>
-              <p>All prior steps will need to be completed before this step can be logged.</p>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <% if @lead.connection %>
+              <span class="new badge" data-badge-caption=""><%= @lead.connection.date.strftime("%b %e") %></span>
             <% end %>
-          </span>
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <% if @lead.offer %>
-            <span class="new badge" data-badge-caption=""><%= @lead.offer.date.strftime("%b %e") %></span>
-          <% end %>
-          <i class="fa fa-briefcase" aria-hidden="true"></i>
-          Job Offer
-        </div>
-        <div class="collapsible-body">
-          <span>
-            <div class="well">
-              <% if @lead.offer %>
-              <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                  <div class="collapsible-header">
-                    <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                    <%= @lead.offer.notes %>
-                  </div>
-                  <div class="collapsible-body">
-                    <span>
-                      <%= form_tag "/users/#{@user.id}/offers/#{@lead.offer.id}", method: :patch do %>
-                        <div class="form-group">
-                          <%= label_tag :notes %>
-                          <%= text_area_tag :notes, @lead.offer.notes %>
-                        </div>
-                        <div>
-                          <%= submit_tag "Submit", class: "btn btn-info"%>
-                        </div>
-                      <% end %>
-                    </span>
-                  </div>
-                </li>
-              </ul>
-              <% elsif @lead.interviews.count > 0 %>
-                <%= form_tag "/users/#{@user.id}/offers", method: :post do %>
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+            Connected On LinkedIn
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <div class="well">
+                <% if @lead.connection %>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header">
+                      <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span><%= @lead.connection.notes %>
+                    </div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/connections/#{@lead.connection.id}", method: :patch do %>
+                          <div class="form-group">
+                            <%= label_tag :notes %>
+                            <%= text_area_tag :notes, @lead.connection.notes %>
+                          </div>
+                          <div>
+                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                          </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <% elsif @lead.invite %>
+                  <%= form_tag "/users/#{@user.id}/connections", method: :post do %>
+                    <div>
+                      <%= hidden_field_tag :lead_id, @lead.id %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :notes %>
+                      <%= text_area_tag :notes %>
+                    </div>
+                    <div>
+                      <%= label_tag :date, "Date Invite Accepted" %>
+                      <%= datetime_select(:date, :date) %>
+                    </div>
+                    <div>
+                      <%= submit_tag "Submit", class: "btn btn-info"%>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <p>All prior steps will need to be completed before this step can be logged.</p>
+                <% end %>
+              </div>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <% if @lead.email %>
+              <span class="new badge" data-badge-caption=""><%= @lead.email.date.strftime("%b %e") %></span>
+            <% end %>
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            Email Sent
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <div class="well">
+                <% if @lead.email %>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header">
+                      <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                      <%= @lead.email.notes %>
+                    </div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/emails/#{@lead.email.id}", method: :patch do %>
+                          <div class="form-group">
+                            <%= label_tag :notes %>
+                            <%= text_area_tag :notes, @lead.email.notes %>
+                          </div>
+                          <div>
+                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                          </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <% elsif @lead.connection %>
+                  <%= form_tag "/users/#{@user.id}/emails", method: :post do %>
+                    <div>
+                      <%= hidden_field_tag :lead_id, @lead.id %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :notes %>
+                      <%= text_area_tag :notes %>
+                    </div>
+                    <div>
+                      <%= label_tag :date, "Date Invite Accepted" %>
+                      <%= datetime_select(:date, :date) %>
+                    </div>
+                    <div>
+                      <%= submit_tag "Submit", class: "btn btn-info"%>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <p>All prior steps will need to be completed before this step can be logged.</p>
+                <% end %>
+              </div>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <% if @lead.meeting %>
+              <span class="new badge" data-badge-caption=""><%= @lead.meeting.date.strftime("%b %e") %></span>
+            <% end %>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            Set Meeting
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <div class="well">
+                <% if @lead.meeting %>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header">
+                      <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                      <%= @lead.meeting.notes %>
+                    </div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/meetings/#{@lead.meeting.id}", method: :patch do %>
+                          <div class="form-group">
+                            <%= label_tag :notes %>
+                            <%= text_area_tag :notes, @lead.meeting.notes %>
+                          </div>
+                          <div>
+                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                          </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <% elsif @lead.email %>
+                  <%= form_tag "/users/#{@user.id}/meetings", method: :post do %>
+                    <div>
+                      <%= hidden_field_tag :lead_id, @lead.id %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :notes %>
+                      <%= text_area_tag :notes %>
+                    </div>
+                    <div>
+                      <%= label_tag :date, "Date Invite Accepted" %>
+                      <%= datetime_select(:date, :date) %>
+                    </div>
+                    <div>
+                      <%= submit_tag "Submit", class: "btn btn-info"%>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <p>All prior steps will need to be completed before this step can be logged.</p>
+                <% end %>
+              </div>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <% if @lead.interviews.count > 0 %>
+              <span class="new badge" data-badge-caption=""><%= @lead.interviews.last.date.strftime("%b %e") %></span>
+            <% end %>
+            <i class="material-icons">question_answer</i>
+            Set Interview
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <% if @lead.interviews.count > 0 %>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
+                          <div>
+                            <%= hidden_field_tag :lead_id, @lead.id %>
+                          </div>
+                          <div class="form-group">
+                            <%= label_tag :notes %>
+                            <%= text_area_tag :notes %>
+                          </div>
+                          <div>
+                            <%= label_tag :date, "Date Invite Accepted" %>
+                            <%= datetime_select(:date, :date) %>
+                          </div>
+                          <div>
+                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                          </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <% @lead.interviews.each do |interview| %>
+                  <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                      <div class="collapsible-header">
+                        <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                        <%= interview.notes %>
+                      </div>
+                      <div class="collapsible-body">
+                        <span>
+                          <%= form_tag "/users/#{@user.id}/interviews/#{interview.id}", method: :patch do %>
+                            <div class="form-group">
+                              <%= label_tag :notes %>
+                              <%= text_area_tag :notes, interview.notes %>
+                            </div>
+                            <div>
+                              <%= submit_tag "Submit", class: "btn btn-info"%>
+                            </div>
+                          <% end %>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                <% end %>
+              <% elsif @lead.meeting %>
+                <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
                   <div>
                     <%= hidden_field_tag :lead_id, @lead.id %>
                   </div>
@@ -396,11 +341,68 @@
               <% else %>
                 <p>All prior steps will need to be completed before this step can be logged.</p>
               <% end %>
-            </div>
-          </span>
-        </div>
-      </li>
-    </ul>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <% if @lead.offer %>
+              <span class="new badge" data-badge-caption=""><%= @lead.offer.date.strftime("%b %e") %></span>
+            <% end %>
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
+            Job Offer
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <div class="well">
+                <% if @lead.offer %>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header">
+                      <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                      <%= @lead.offer.notes %>
+                    </div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/offers/#{@lead.offer.id}", method: :patch do %>
+                          <div class="form-group">
+                            <%= label_tag :notes %>
+                            <%= text_area_tag :notes, @lead.offer.notes %>
+                          </div>
+                          <div>
+                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                          </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <% elsif @lead.interviews.count > 0 %>
+                  <%= form_tag "/users/#{@user.id}/offers", method: :post do %>
+                    <div>
+                      <%= hidden_field_tag :lead_id, @lead.id %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :notes %>
+                      <%= text_area_tag :notes %>
+                    </div>
+                    <div>
+                      <%= label_tag :date, "Date Invite Accepted" %>
+                      <%= datetime_select(:date, :date) %>
+                    </div>
+                    <div>
+                      <%= submit_tag "Submit", class: "btn btn-info"%>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <p>All prior steps will need to be completed before this step can be logged.</p>
+                <% end %>
+              </div>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
