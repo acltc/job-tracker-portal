@@ -33,14 +33,14 @@ class LeadsController < ApplicationController
       )
 
       if @invite.save
-        flash[:success] = "Lead successfully created!"
+        flash[:notice] = "Lead successfully created!"
         redirect_to user_lead_path(@user, @lead)
       else
-        flash[:danger] = "There was an error when saving the lead. Please try again."
+        flash[:alert] = "There was an error when saving the lead. Please try again."
         render :new
       end
     else
-      flash[:danger] = "There was an error when saving the lead. Please try again."
+      flash[:alert] = "There was an error when saving the lead. Please try again."
       render :new
     end
   end
@@ -64,10 +64,10 @@ class LeadsController < ApplicationController
       phone: params[:phone],
       notes: params[:notes]
     )
-      flash[:success] = "Lead successfully updated!"
+      flash[:notice] = "Lead successfully updated!"
       redirect_to user_lead_path(@user.id, @lead.id)
     else
-      flash[:danger] = "There was an error when saving the lead. Please try again."
+      flash[:alert] = "There was an error when saving the lead. Please try again."
       render :edit
     end
   end
@@ -78,7 +78,7 @@ class LeadsController < ApplicationController
    @user = User.find(params[:user_id])
 
    unless current_admin || current_user.id == @user.id
-     flash[:warning] = "You are not authorized to view this page"
+     flash[:alert] = "You are not authorized to view this page"
      redirect_to root_path
    end
   end

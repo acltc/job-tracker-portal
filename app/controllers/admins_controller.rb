@@ -22,7 +22,7 @@ class AdminsController < ApplicationController
 
     if successfully_updated
       sign_in(@admin, :bypass => true)
-      flash[:success] = "Admin account was successfully updated!"
+      flash[:notice] = "Admin account was successfully updated!"
       redirect_to root_path
     else
       render :edit

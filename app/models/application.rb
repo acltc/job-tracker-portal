@@ -1,11 +1,8 @@
-class Lead < ApplicationRecord
+class Application < ApplicationRecord
   belongs_to :user
   has_many :interviews, dependent: :delete_all
-  has_one :invite, dependent: :delete
-  has_one :connection, dependent: :delete
-  has_many :emails, dependent: :delete_all
-  has_one :meeting, dependent: :delete
   has_one :offer, dependent: :delete
+  has_one :submission, dependent: :delete
 
   def last_action_friendly
     last_action.strftime("%b %e, %Y -- %l:%M%P")
@@ -29,14 +26,8 @@ class Lead < ApplicationRecord
       return offer.name
     elsif self.interviews.any?
       return interviews.first.name
-    elsif self.meeting
-      return meeting.name
-    elsif self.emails.any?
-      return emails.first.name
-    elsif self.connection
-      return connection.name
     else
-      return invite.name
+      return submission.name
     end
   end
 end

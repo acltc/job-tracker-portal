@@ -4,40 +4,38 @@ class EmailsController < ApplicationController
 
   def create
     @lead = Lead.find(params[:lead_id])
-    parsed_datetime = params[:date]["date(1i)"] + "-" + params[:date]["date(2i)"] + "-" + params[:date]["date(3i)"] + " " + params[:date]["date(4i)"] + ":" + params[:date]["date(5i)"]
+
+    p " -------------------------------------- "
+    p params[:date]
+    p " -------------------------------------- "
 
     @email = Email.new(
-      date: parsed_datetime,
+      date: params[:date],
       lead_id: @lead.id,
       notes: params[:notes]
     )
 
     if @email.save
-      if @lead.update(last_action: parsed_datetime)
-        flash[:success] = "Your lead status has been successfully updated."
-        redirect_to user_lead_path(@user.id, @email.lead_id)
+      if @lead.update(last_action: params[:date])
+        flash[:notice] = 'Update successful.'
       else
-        flash[:danger] = "An error occured when updating your lead status. Please try again."
-        redirect_to user_lead_path(@user.id, @email.lead_id)
+        flash[:alert] = 'An error occured.'
       end
     else
-      flash[:danger] = "An error occured when updating your lead status. Please try again."
-      redirect_to user_lead_path(@user.id, @email.lead_id)
+      flash[:alert] = 'An error occured.'
     end
+    redirect_to user_lead_path(@user.id, @email.lead_id)
   end
 
   def update
     @email = Email.find(params[:id])
 
-    if @email.update(
-      notes: params[:notes]
-    )
-      flash[:success] = "Notes have been successfully updated."
-      redirect_to user_lead_path(@user.id, @email.lead_id)
+    if @email.update(notes: params[:notes])
+      flash[:notice] = 'Notes have been successfully updated.'
     else
-      flash[:danger] = "Error saving update. Please try again."
-      redirect_to user_lead_path(@user.id, @email.lead_id)
+      flash[:alert] = 'Error saving update. Please try again.'
     end
+    redirect_to user_lead_path(@user.id, @email.lead_id)
   end
 
   private
@@ -46,7 +44,7 @@ class EmailsController < ApplicationController
    @user = User.find(params[:user_id])
 
    unless current_admin || current_user.id == @user.id
-     flash[:warning] = "You are not authorized to view this page"
+     flash[:notice] = "You are not authorized to view this page"
      redirect_to root_path
    end
   end

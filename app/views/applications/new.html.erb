@@ -1,0 +1,33 @@
+<h1>New Application</h1>
+<%= form_tag "/users/#{@user.id}/applications", method: :post do %>
+  <div>
+    <%= label_tag :company, "Company: " %>
+    <%= text_field_tag :company, @application.company %>
+  </div>
+  <div>
+    <%= label_tag :job_title, "Job Title: " %>
+    <%= text_field_tag :job_title, @application.job_title %>
+  </div>
+  <div>
+    <%= label_tag :notes, "Application Notes: " %>
+    <%= text_field_tag :notes, @application.notes %>
+  </div>
+  <div>
+    <%= label_tag :last_action, "Application submitted on: " %>
+    <input type="date" class="datepicker primary-color">
+  </div>
+  <div>
+    <%= label_tag :submission_notes, "Submission Notes: " %>
+    <%= text_field_tag :submission_notes %>
+  </div>
+  <div>
+    <%= submit_tag "Submit" %>
+  </div>
+<% end %>
+
+<script>
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+</script>

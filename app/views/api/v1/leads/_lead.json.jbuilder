@@ -9,12 +9,10 @@ json.notes lead.notes
 json.notes_preview lead.notes_preview
 json.current_step lead.current_step
 json.last_action lead.last_action
-json.last_action_friendly lead.last_action_friendly
-json.last_action_date_only lead.last_action_date_only
 json.archived lead.archived
 json.invite lead.invite
 json.connection lead.connection
-json.email lead.email
+json.emails lead.emails
 json.meeting lead.meeting
 json.interviews lead.interviews
 json.offer lead.offer

@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
     if successfully_updated
       sign_in(@user, :bypass => true)
-      flash[:success] = "User account was successfully updated!"
+      flash[:notice] = "User account was successfully updated!"
       redirect_to @user
     else
       render :edit
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     unless current_admin || current_user.id == @user.id
-      flash[:warning] = "You are not authorized to view this page"
+      flash[:alert] = "You are not authorized to view this page"
       redirect_to root_path
     end
   end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users do
+    resources :applications
     resources :leads
     resources :invites
     resources :connections
@@ -15,12 +16,12 @@ Rails.application.routes.draw do
 
   resources :admins
 
-namespace :api do
-  namespace :v1 do
-    resources :users do
-      resources :leads
+  namespace :api do
+    namespace :v1 do
+      resources :users do
+        resources :leads
+        resources :applications
+      end
     end
   end
-end
-  
 end

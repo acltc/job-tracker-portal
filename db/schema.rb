@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301220136) do
+ActiveRecord::Schema.define(version: 20170302234559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,10 +33,22 @@ ActiveRecord::Schema.define(version: 20170301220136) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "applications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "company"
+    t.string   "job_title"
+    t.text     "notes"
+    t.boolean  "archived"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.date     "last_action"
+    t.index ["user_id"], name: "index_applications_on_user_id", using: :btree
+  end
+
   create_table "connections", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "notes"
-    t.datetime "date"
+    t.date     "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lead_id"], name: "index_connections_on_lead_id", using: :btree
@@ -45,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170301220136) do
   create_table "emails", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "notes"
-    t.datetime "date"
+    t.date     "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lead_id"], name: "index_emails_on_lead_id", using: :btree
@@ -54,16 +66,18 @@ ActiveRecord::Schema.define(version: 20170301220136) do
   create_table "interviews", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "notes"
-    t.datetime "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date     "date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "application_id"
+    t.index ["application_id"], name: "index_interviews_on_application_id", using: :btree
     t.index ["lead_id"], name: "index_interviews_on_lead_id", using: :btree
   end
 
   create_table "invites", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "notes"
-    t.datetime "date"
+    t.date     "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lead_id"], name: "index_invites_on_lead_id", using: :btree
@@ -77,7 +91,7 @@ ActiveRecord::Schema.define(version: 20170301220136) do
     t.string   "job_title"
     t.string   "phone"
     t.text     "notes"
-    t.datetime "last_action"
+    t.date     "last_action"
     t.boolean  "archived",      default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -87,7 +101,7 @@ ActiveRecord::Schema.define(version: 20170301220136) do
   create_table "meetings", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "notes"
-    t.datetime "date"
+    t.date     "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lead_id"], name: "index_meetings_on_lead_id", using: :btree
@@ -96,7 +110,7 @@ ActiveRecord::Schema.define(version: 20170301220136) do
   create_table "offers", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "notes"
-    t.datetime "date"
+    t.date     "date"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "status"
@@ -105,7 +119,18 @@ ActiveRecord::Schema.define(version: 20170301220136) do
     t.string   "location"
     t.string   "starting_salary"
     t.date     "first_date"
+    t.integer  "application_id"
+    t.index ["application_id"], name: "index_offers_on_application_id", using: :btree
     t.index ["lead_id"], name: "index_offers_on_lead_id", using: :btree
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer  "application_id"
+    t.text     "notes"
+    t.date     "date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["application_id"], name: "index_submissions_on_application_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

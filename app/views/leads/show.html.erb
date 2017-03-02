@@ -5,7 +5,7 @@
       <div class="card">
         <div class="container">
           <div class="card-header">
-            <p class="card-date">Last Updated: <%= @lead.last_action_friendly %></p>
+            <p class="card-date">Last Updated: <%= @lead.last_action %></p>
             <p class="card-title"><%= @lead.name.upcase %></p>
           </div>
           <div class="card-content">
@@ -138,7 +138,7 @@
                     </div>
                     <div>
                       <%= label_tag :date, "Date Invite Accepted" %>
-                      <%= datetime_select(:date, :date) %>
+                      <input type="date" class="datepicker primary-color">
                     </div>
                     <div>
                       <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -153,28 +153,31 @@
         </li>
         <li>
           <div class="collapsible-header">
-            <% if @lead.email %>
-              <span class="new badge" data-badge-caption=""><%= @lead.email.date.strftime("%b %e") %></span>
+            <% if @lead.emails.count > 0 %>
+              <span class="new badge" data-badge-caption=""><%= @lead.emails.last.date %></span>
             <% end %>
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-            Email Sent
+            <i class="material-icons">question_answer</i>
+            Sent Email
           </div>
           <div class="collapsible-body">
             <span>
-              <div class="well">
-                <% if @lead.email %>
+              <% if @lead.emails.count > 0 %>
                 <ul class="collapsible" data-collapsible="accordion">
                   <li>
-                    <div class="collapsible-header">
-                      <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                      <%= @lead.email.notes %>
-                    </div>
+                    <div class="collapsible-header"><i class="fa fa-plus" aria-hidden="true"></i></div>
                     <div class="collapsible-body">
                       <span>
-                        <%= form_tag "/users/#{@user.id}/emails/#{@lead.email.id}", method: :patch do %>
+                        <%= form_tag "/users/#{@user.id}/emails", method: :post do %>
+                          <div>
+                            <%= hidden_field_tag :lead_id, @lead.id %>
+                          </div>
                           <div class="form-group">
                             <%= label_tag :notes %>
-                            <%= text_area_tag :notes, @lead.email.notes %>
+                            <%= text_area_tag :notes %>
+                          </div>
+                          <div>
+                            <%= label_tag :date, "Date Email Sent" %>
+                            <input type="date" class="datepicker primary-color">
                           </div>
                           <div>
                             <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -184,27 +187,49 @@
                     </div>
                   </li>
                 </ul>
-                <% elsif @lead.connection %>
-                  <%= form_tag "/users/#{@user.id}/emails", method: :post do %>
-                    <div>
-                      <%= hidden_field_tag :lead_id, @lead.id %>
-                    </div>
-                    <div class="form-group">
-                      <%= label_tag :notes %>
-                      <%= text_area_tag :notes %>
-                    </div>
-                    <div>
-                      <%= label_tag :date, "Date Invite Accepted" %>
-                      <%= datetime_select(:date, :date) %>
-                    </div>
-                    <div>
-                      <%= submit_tag "Submit", class: "btn btn-info"%>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p>All prior steps will need to be completed before this step can be logged.</p>
+                <% @lead.emails.each do |email| %>
+                  <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                      <div class="collapsible-header">
+                        <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                        <%= email.notes %>
+                      </div>
+                      <div class="collapsible-body">
+                        <span>
+                          <%= form_tag "/users/#{@user.id}/emails/#{email.id}", method: :patch do %>
+                            <div class="form-group">
+                              <%= label_tag :notes %>
+                              <%= text_area_tag :notes, email.notes %>
+                            </div>
+                            <div>
+                              <%= submit_tag "Submit", class: "btn btn-info"%>
+                            </div>
+                          <% end %>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
                 <% end %>
-              </div>
+              <% elsif @lead.connection %>
+                <%= form_tag "/users/#{@user.id}/emails", method: :post do %>
+                  <div>
+                    <%= hidden_field_tag :lead_id, @lead.id %>
+                  </div>
+                  <div class="form-group">
+                    <%= label_tag :notes %>
+                    <%= text_area_tag :notes %>
+                  </div>
+                  <div>
+                    <%= label_tag :date, "Date Email Sent" %>
+                    <input type="date" class="datepicker primary-color">
+                  </div>
+                  <div>
+                    <%= submit_tag "Submit", class: "btn btn-info"%>
+                  </div>
+                <% end %>
+              <% else %>
+                <p>All prior steps will need to be completed before this step can be logged.</p>
+              <% end %>
             </span>
           </div>
         </li>
@@ -241,7 +266,7 @@
                     </div>
                   </li>
                 </ul>
-                <% elsif @lead.email %>
+                <% elsif @lead.emails.count > 0 %>
                   <%= form_tag "/users/#{@user.id}/meetings", method: :post do %>
                     <div>
                       <%= hidden_field_tag :lead_id, @lead.id %>
@@ -252,7 +277,7 @@
                     </div>
                     <div>
                       <%= label_tag :date, "Date Invite Accepted" %>
-                      <%= datetime_select(:date, :date) %>
+                      <input type="date" class="datepicker primary-color">
                     </div>
                     <div>
                       <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -291,7 +316,7 @@
                           </div>
                           <div>
                             <%= label_tag :date, "Date Invite Accepted" %>
-                            <%= datetime_select(:date, :date) %>
+                            <input type="date" class="datepicker primary-color">
                           </div>
                           <div>
                             <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -335,7 +360,7 @@
                   </div>
                   <div>
                     <%= label_tag :date, "Date Invite Accepted" %>
-                    <%= datetime_select(:date, :date) %>
+                    <input type="date" class="datepicker primary-color">
                   </div>
                   <div>
                     <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -424,7 +449,7 @@
                     </div>
                     <div>
                       <%= label_tag :date, "Date Invite Accepted" %>
-                      <%= datetime_select(:date, :date) %>
+                      <input type="date" class="datepicker primary-color">
                     </div>
                     <div class="form-group">
                       <%= label_tag :job_title %>

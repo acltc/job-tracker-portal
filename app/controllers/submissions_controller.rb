@@ -1,18 +1,18 @@
-class InvitesController < ApplicationController
+class SubmissionsController < ApplicationController
   before_action :authenticate_authorized_user
   before_action :set_user
 
   def update
-    @invite = Invite.find(params[:id])
+    @submission = Submission.find(params[:id])
 
-    if @invite.update(
+    if @submission.update(
       notes: params[:notes]
     )
       flash[:notice] = "Notes have been successfully updated."
-      redirect_to user_lead_path(@user.id, @invite.lead_id)
+      redirect_to user_lead_path(@user.id, @submission.lead_id)
     else
       flash[:alert] = "Error saving update. Please try again."
-      redirect_to user_lead_path(@user.id, @invite.lead_id)
+      redirect_to user_lead_path(@user.id, @submission.lead_id)
     end
   end
 
