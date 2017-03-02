@@ -9,7 +9,12 @@ class OffersController < ApplicationController
     @offer = Offer.new(
       date: parsed_datetime,
       lead_id: @lead.id,
-      notes: params[:notes]
+      notes: params[:notes],
+      company_name: params[:company_name],
+      job_title: params[:job_title],
+      location: params[:location],
+      starting_salary: params[:starting_salary],
+      first_date: params[:first_date]
     )
 
     if @offer.save
@@ -30,7 +35,12 @@ class OffersController < ApplicationController
     @offer = Offer.find(params[:id])
 
     if @offer.update(
-      notes: params[:notes]
+      notes: params[:notes],
+      company_name: params[:company_name],
+      job_title: params[:job_title],
+      location: params[:location],
+      starting_salary: params[:starting_salary],
+      first_date: params[:first_date]
     )
       flash[:success] = "Notes have been successfully updated."
       redirect_to user_lead_path(@user.id, @offer.lead_id)

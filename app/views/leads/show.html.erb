@@ -50,6 +50,9 @@
               </div>
             </div>
           </div>
+          <div class="card-action right-align">
+              <a href="/users/<%= @user.id %>/leads/<%= @lead.id %>/edit">EDIT</a>
+            </div>
         </div>
       </div>
     </div>
@@ -356,6 +359,7 @@
             <span>
               <div class="well">
                 <% if @lead.offer %>
+                <h3 class="center-align">Congratulations!</h3>
                 <ul class="collapsible" data-collapsible="accordion">
                   <li>
                     <div class="collapsible-header">
@@ -365,13 +369,45 @@
                     <div class="collapsible-body">
                       <span>
                         <%= form_tag "/users/#{@user.id}/offers/#{@lead.offer.id}", method: :patch do %>
-                          <div class="form-group">
-                            <%= label_tag :notes %>
-                            <%= text_area_tag :notes, @lead.offer.notes %>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_area_tag :notes, @lead.notes, class: "materialize-textarea" %>
+                            <label for="notes" data-error="Incorrect Format" data-success="" class="active">Notes</label>
                           </div>
-                          <div>
-                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :job_title %>
+                            <%= label_tag :job_title %>
                           </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :company_name %>
+                            <%= label_tag :company_name %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :location %>
+                            <%= label_tag :location %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :starting_salary %>
+                            <%= label_tag :starting_salary %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <input type="date" class="datepicker">
+                            <%= label_tag :first_day %>
+                          </div>
+                        </div>
+                        <div class="row right-align">
+                          <button class="btn waves-effect waves-light amber" type="submit">Submit</button>
+                        </div>
                         <% end %>
                       </span>
                     </div>
@@ -389,6 +425,26 @@
                     <div>
                       <%= label_tag :date, "Date Invite Accepted" %>
                       <%= datetime_select(:date, :date) %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :job_title %>
+                      <%= text_field_tag :job_title %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :company_name %>
+                      <%= text_field_tag :company_name %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :location %>
+                      <%= text_field_tag :location %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :starting_salary %>
+                      <%= text_field_tag :starting_salary %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :first_day %>
+                      <%= text_area_tag :first_day %>
                     </div>
                     <div>
                       <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -409,5 +465,10 @@
 <script>
   $(document).ready(function(){
     $('.collapsible').collapsible();
+  });
+
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
   });
 </script>
