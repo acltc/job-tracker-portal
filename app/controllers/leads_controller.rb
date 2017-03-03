@@ -12,8 +12,6 @@ class LeadsController < ApplicationController
   end
 
   def create
-    parsed_datetime = params[:last_action]["date(1i)"] + "-" + params[:last_action]["date(2i)"] + "-" + params[:last_action]["date(3i)"] + " " + params[:last_action]["date(4i)"] + ":" + params[:last_action]["date(5i)"]
-
     @lead = Lead.new(
       user_id: @user.id,
       name: params[:name],
@@ -22,12 +20,12 @@ class LeadsController < ApplicationController
       email_address: params[:email_address],
       phone: params[:phone],
       notes: params[:notes],
-      last_action: parsed_datetime
+      last_action: params[:date]
     )
 
     if @lead.save
       @invite = Invite.new(
-        date: parsed_datetime,
+        date: params[:date],
         lead_id: @lead.id,
         notes: params[:invite_notes]
       )

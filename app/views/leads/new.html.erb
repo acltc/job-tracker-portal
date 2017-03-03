@@ -26,7 +26,7 @@
   </div>
   <div>
     <%= label_tag :last_action, "Contact initated on: " %><span title="Initial contact includes LinkedIn Invite Sent, introduction email, Meet-up, etc. Please specify form of contact in the invitation notes."> ?</span>
-    <input type="date" class="datepicker primary-color">
+    <%= text_field_tag :date, Date.today, class: "datepicker" %>
   </div>
   <div>
     <%= label_tag :invite_notes, "Invitaton Notes: " %>

@@ -5,10 +5,6 @@ class EmailsController < ApplicationController
   def create
     @lead = Lead.find(params[:lead_id])
 
-    p " -------------------------------------- "
-    p params[:date]
-    p " -------------------------------------- "
-
     @email = Email.new(
       date: params[:date],
       lead_id: @lead.id,

@@ -1,0 +1,281 @@
+<!-- LEAD INFORMATION -->
+<div class="lead-show">
+  <div class="row">
+    <div class="col s12 m12 l6">
+      <div class="card">
+        <div class="container">
+          <div class="card-header">
+            <p class="card-date">Last Updated: <%= @application.last_action.strftime("%B %u, %Y") %></p>
+            <p class="card-title"><%= @application.company.upcase %></p>
+          </div>
+          <div class="card-content">
+            <div class="row">
+              <div class="col s4 right-align">
+                <span class="lead-label">Job Title:</span>
+              </div>
+              <div class="col s8">
+                <p><%= @application.job_title %></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s4 right-align">
+                <span class="lead-label">Notes:</span>
+              </div>
+              <div class="col s8">
+                <p><%= @application.notes %></p>
+              </div>
+            </div>
+          </div>
+          <div class="card-action right-align">
+              <a href="/users/<%= @user.id %>/leads/<%= @application.id %>/edit">EDIT</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  <!-- END LEAD INFORMATION -->
+
+    <div class="col s12 m12 l6">
+      <ul class="collapsible popout" data-collapsible="expandable">
+        <li>
+          <div class="collapsible-header">
+            <% if @application.submission %>
+              <span class="new badge" data-badge-caption=""><%= @application.submission.date.strftime("%b %e") %></span>
+            <% end %>
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            LinkedIn Invite Sent
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <% if @application.submission %>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header">
+                      <span class="new badge accent-color lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span><%= @application.submission.notes %>
+                    </div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/submissions/#{@application.submission.id}", method: :patch do %>
+                          <div class="form-group">
+                            <%= label_tag :notes %>
+                            <%= text_area_tag :notes, @application.submission.notes %>
+                          </div>
+                          <div>
+                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                          </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              <% end %>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <% if @application.interviews.count > 0 %>
+              <span class="new badge" data-badge-caption=""><%= @application.interviews.last.date.strftime("%b %e") %></span>
+            <% end %>
+            <i class="material-icons">question_answer</i>
+            Set Interview
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <% if @application.interviews.count > 0 %>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
+                          <div>
+                            <%= hidden_field_tag :lead_id, @application.id %>
+                          </div>
+                          <div class="form-group">
+                            <%= label_tag :notes %>
+                            <%= text_area_tag :notes %>
+                          </div>
+                          <div>
+                            <%= label_tag :date, "Date Invite Accepted" %>
+                            <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                          </div>
+                          <div>
+                            <%= submit_tag "Submit", class: "btn btn-info"%>
+                          </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <% @application.interviews.each do |interview| %>
+                  <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                      <div class="collapsible-header">
+                        <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                        <%= interview.notes %>
+                      </div>
+                      <div class="collapsible-body">
+                        <span>
+                          <%= form_tag "/users/#{@user.id}/interviews/#{interview.id}", method: :patch do %>
+                            <div class="form-group">
+                              <%= label_tag :notes %>
+                              <%= text_area_tag :notes, interview.notes %>
+                            </div>
+                            <div>
+                              <%= submit_tag "Submit", class: "btn btn-info"%>
+                            </div>
+                          <% end %>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                <% end %>
+              <% elsif @application.submission %>
+                <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
+                  <div>
+                    <%= hidden_field_tag :lead_id, @application.id %>
+                  </div>
+                  <div class="form-group">
+                    <%= label_tag :notes %>
+                    <%= text_area_tag :notes %>
+                  </div>
+                  <div>
+                    <%= label_tag :date, "Date Invite Accepted" %>
+                    <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                  </div>
+                  <div>
+                    <%= submit_tag "Submit", class: "btn btn-info"%>
+                  </div>
+                <% end %>
+              <% else %>
+                <p>All prior steps will need to be completed before this step can be logged.</p>
+              <% end %>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <% if @application.offer %>
+              <span class="new badge" data-badge-caption=""><%= @application.offer.date.strftime("%b %e") %></span>
+            <% end %>
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
+            Job Offer
+          </div>
+          <div class="collapsible-body">
+            <span>
+              <div class="well">
+                <% if @application.offer %>
+                <h3 class="center-align">Congratulations!</h3>
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header">
+                      <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                      <%= @application.offer.notes %>
+                    </div>
+                    <div class="collapsible-body">
+                      <span>
+                        <%= form_tag "/users/#{@user.id}/offers/#{@application.offer.id}", method: :patch do %>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_area_tag :notes, @application.notes, class: "materialize-textarea" %>
+                            <label for="notes" data-error="Incorrect Format" data-success="" class="active">Notes</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :job_title %>
+                            <%= label_tag :job_title %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :company_name %>
+                            <%= label_tag :company_name %>
+                            <%= label_tag :company_name %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :location %>
+                            <%= label_tag :location %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= text_field_tag :starting_salary %>
+                            <%= label_tag :starting_salary %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field">
+                            <%= label_tag :first_day %>
+                            <%= text_field_tag :first_day, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                          </div>
+                        </div>
+                        <div class="row right-align">
+                          <button class="btn waves-effect waves-light amber" type="submit">Submit</button>
+                        </div>
+                        <% end %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <% elsif @application.interviews.count > 0 %>
+                  <%= form_tag "/users/#{@user.id}/offers", method: :post do %>
+                    <div>
+                      <%= hidden_field_tag :lead_id, @application.id %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :notes %>
+                      <%= text_area_tag :notes %>
+                    </div>
+                    <div>
+                      <%= label_tag :date, "Date Invite Accepted" %>
+                      <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :job_title %>
+                      <%= text_field_tag :job_title %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :company_name %>
+                      <%= text_field_tag :company_name %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :location %>
+                      <%= text_field_tag :location %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :starting_salary %>
+                      <%= text_field_tag :starting_salary %>
+                    </div>
+                    <div class="form-group">
+                      <%= label_tag :first_day %>
+                      <%= text_field_tag :first_day, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                    </div>
+                    <div>
+                      <%= submit_tag "Submit", class: "btn btn-info"%>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <p>All prior steps will need to be completed before this step can be logged.</p>
+                <% end %>
+              </div>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+</script>
