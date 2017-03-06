@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :meetings
     resources :interviews
     resources :offers
+    get '/dashboard' => 'pages#dashboard'
   end
 
   resources :admins

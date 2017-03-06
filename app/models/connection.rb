@@ -2,6 +2,6 @@ class Connection < ApplicationRecord
   belongs_to :lead
 
   def name
-    return "Connection"
+    'Connection'
   end
 end

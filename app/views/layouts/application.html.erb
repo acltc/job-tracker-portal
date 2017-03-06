@@ -4,8 +4,8 @@
     <title>JobTrackerPortal</title>
     <%= csrf_meta_tags %>
     <%= Gon::Base.render_data %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 
@@ -28,7 +28,7 @@
           <% if current_user %>
             <li><a href="/users/<%= current_user.id %>/applications/new"><i class="material-icons left">assignment</i>New Application</a></li>
             <li><a href="/users/<%= current_user.id %>/leads/new"><i class="material-icons left">assignment_ind</i>New Lead</a></li>
-            <li><a href="/users/<%= current_user.id %>/leads">My Dashboard</a></li>
+            <li><a href="/users/<%= current_user.id %>/dashboard">My Dashboard</a></li>
           <% end %>
           <!-- Dropdown Trigger -->
           <li><a class="dropdown-button" href="#!" data-activates="dropdown1">My Account<i class="material-icons right">arrow_drop_down</i></a></li>

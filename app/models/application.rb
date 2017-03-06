@@ -22,9 +22,9 @@ class Application < ApplicationRecord
   end
 
   def current_step
-    if self.offer
+    if offer
       return offer.name
-    elsif self.interviews.any?
+    elsif interviews.any?
       return interviews.first.name
     else
       return submission.name

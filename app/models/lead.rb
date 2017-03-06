@@ -25,15 +25,15 @@ class Lead < ApplicationRecord
   end
 
   def current_step
-    if self.offer
+    if offer
       return offer.name
-    elsif self.interviews.any?
+    elsif interviews.any?
       return interviews.first.name
-    elsif self.meeting
+    elsif meeting
       return meeting.name
-    elsif self.emails.any?
+    elsif emails.any?
       return emails.first.name
-    elsif self.connection
+    elsif connection
       return connection.name
     else
       return invite.name

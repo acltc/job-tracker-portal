@@ -2,6 +2,6 @@ class Offer < ApplicationRecord
   belongs_to :lead
 
   def name
-    return "Offer"
+    'Offer'
   end
 end

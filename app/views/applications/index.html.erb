@@ -1,5 +1,5 @@
-<div id="leads-index" class="pt-80">
-  <h2 class="center-align">My Leads</h2>
+<div id="applications-index" class="pt-80">
+  <h2 class="center-align">My Applications</h2>
   <div class="row">
     <div class="input-field col s6 offset-s3">
       <div class="valign-wrapper">
@@ -14,27 +14,21 @@
           <tr>
             <th data-field="edit"></th>
             <th data-field="view"></th>
-            <th data-field="name" @click="orderByField('name')">Name <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th data-field="company" @click="orderByField('company')">Company <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="job_title" @click="orderByField('job_title')">Job Title <i class="fa fa-sort" aria-hidden="true"></th>
-            <th data-field="email_address" @click="orderByField('email_address')">Email <i class="fa fa-sort" aria-hidden="true"></th>
-            <th data-field="phone" @click="orderByField('phone')">Phone <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="notes" @click="orderByField('notes')">Notes <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="last_action" @click="orderByField('last_action')">Last Updated <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="current_step" @click="orderByField('current_step')">Current Step <i class="fa fa-sort" aria-hidden="true"></th>
           </tr>
       </thead>
-      <tr v-for="lead in tableFilter" :class="lead.current_step.toLowerCase()">
-        <td><a v-bind:href="editUrlBuilder(lead.id)"><i class="material-icons">mode_edit</i></td>
-        <td><a v-bind:href="viewUrlBuilder(lead.id)"><i class="material-icons">visibility</i></td>
-        <td>{{ lead.name }}</a></td>
-        <td>{{ lead.company }}</td>
-        <td>{{ lead.job_title }}</td>
-        <td>{{ lead.email_address }}</td>
-        <td>{{ lead.phone }}</td>
-        <td>{{ lead.notes_preview }}</td>
-        <td>{{ lead.last_action_date_only }}
-        <td>{{ lead.current_step }}</td>
+      <tr v-for="application in tableFilter" :class="application.current_step.toLowerCase()">
+        <td><a v-bind:href="editUrlBuilder(application.id)"><i class="material-icons">mode_edit</i></td>
+        <td><a v-bind:href="viewUrlBuilder(application.id)"><i class="material-icons">visibility</i></td>
+        <td>{{ application.company }}</td>
+        <td>{{ application.job_title }}</td>
+        <td>{{ application.notes_preview }}</td>
+        <td>{{ application.last_action_date_only }}
+        <td>{{ application.current_step }}</td>
       </tr>
     </table>
   </div>
