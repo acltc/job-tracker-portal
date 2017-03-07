@@ -9,31 +9,24 @@
     </div>
   </div>
   <div class="row">
-    <table class="bordered responsive-table">
+    <table class="responsive-table centered">
       <thead>
           <tr>
-            <th data-field="edit"></th>
-            <th data-field="view"></th>
+
             <th data-field="name" @click="orderByField('name')">Name <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th data-field="company" @click="orderByField('company')">Company <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="job_title" @click="orderByField('job_title')">Job Title <i class="fa fa-sort" aria-hidden="true"></th>
-            <th data-field="email_address" @click="orderByField('email_address')">Email <i class="fa fa-sort" aria-hidden="true"></th>
-            <th data-field="phone" @click="orderByField('phone')">Phone <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="notes" @click="orderByField('notes')">Notes <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="last_action" @click="orderByField('last_action')">Last Updated <i class="fa fa-sort" aria-hidden="true"></th>
             <th data-field="current_step" @click="orderByField('current_step')">Current Step <i class="fa fa-sort" aria-hidden="true"></th>
           </tr>
       </thead>
-      <tr v-for="lead in tableFilter" :class="lead.current_step.toLowerCase()">
-        <td><a v-bind:href="editUrlBuilder(lead.id)"><i class="material-icons">mode_edit</i></td>
-        <td><a v-bind:href="viewUrlBuilder(lead.id)"><i class="material-icons">visibility</i></td>
-        <td>{{ lead.name }}</a></td>
+      <tr v-for="lead in tableFilter"  class="table-row" :class="lead.current_step.toLowerCase()" @click="showLead(lead.id)">
+        <td>{{ lead.name }}</td>
         <td>{{ lead.company }}</td>
         <td>{{ lead.job_title }}</td>
-        <td>{{ lead.email_address }}</td>
-        <td>{{ lead.phone }}</td>
         <td>{{ lead.notes_preview }}</td>
-        <td>{{ lead.last_action_date_only }}
+        <td>{{ lead.last_action }}
         <td>{{ lead.current_step }}</td>
       </tr>
     </table>

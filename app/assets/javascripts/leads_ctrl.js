@@ -52,11 +52,11 @@ $(document).ready(function() {
           return searchMatch;
         })
       },
-      viewUrlBuilder: function(leadId) {
-        return "/users/" + gon.user_id + "/leads/" + leadId;
-      },
       editUrlBuilder: function(leadId) {
         return "/users/" + gon.user_id + "/leads/" + leadId +"/edit";
+      },
+      showLead: function(leadId) {
+        window.location = "/users/" + gon.user_id + "/leads/" + leadId;
       }
     }
   })

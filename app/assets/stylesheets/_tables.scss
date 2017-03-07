@@ -1,0 +1,34 @@
+@import "_variables";
+
+/********** LEADS INDEX TABLE **********/
+
+.invite {
+  background-color: rgba(63, 81, 181, .1)
+}
+
+.connection {
+  background-color: rgba(63, 81, 181, .23)
+}
+
+.email {
+  background-color: rgba(63, 81, 181, .36)
+}
+
+.meeting {
+  background-color: rgba(63, 81, 181, .49)
+}
+
+.interview {
+  background-color: rgba(63, 81, 181, .62)
+}
+
+.offer {
+  background-color: rgba(63, 81, 181, .75)
+}
+
+.table-row:hover {
+  cursor: pointer;
+  background-color: rgba($primary-color-dark, 1);
+  color: white;
+  border: 3px solid white;
+}
