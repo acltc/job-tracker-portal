@@ -4,14 +4,21 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users do
-    resources :applications
-    resources :leads
-    resources :invites
-    resources :connections
-    resources :emails
-    resources :meetings
-    resources :interviews
-    resources :offers
+    resources :applications do
+      resources :submissions
+      resources :interviews, module: :applications
+      resources :offers
+    end
+
+    resources :leads do
+      resources :invites
+      resources :connections
+      resources :emails
+      resources :meetings
+      resources :interviews, module: :leads
+      resources :offers
+    end
+
     get '/dashboard' => 'pages#dashboard'
   end
 

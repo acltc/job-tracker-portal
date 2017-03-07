@@ -1,0 +1,11 @@
+<%= form_for [user, interviewable, Interview.new] do |f| %>
+  <div class="input-field">
+    <%= f.text_area :notes, class: "materialize-textarea" %>
+    <%= f.label :notes, class: "active" %>
+  </div>
+  <div class="input-field">
+    <%= f.text_field :date, class: "datepicker" %>
+    <%= f.label :date, class: "active" %>
+  </div>
+  <%= f.submit %>
+<% end %>

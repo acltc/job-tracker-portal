@@ -1,4 +1,4 @@
-<!-- LEAD INFORMATION -->
+<!-- APPLICATION INFORMATION -->
 <div class="lead-show">
   <div class="row">
     <div class="col s12 m12 l6">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="collapsible-body">
                       <span>
-                        <%= form_tag "/users/#{@user.id}/submissions/#{@application.submission.id}", method: :patch do %>
+                        <%= form_tag "/users/#{@user.id}/applications/#{@application.id}/submissions/#{@application.submission.id}", method: :patch do %>
                           <div class="form-group">
                             <%= label_tag :notes %>
                             <%= text_area_tag :notes, @application.submission.notes %>
@@ -87,22 +87,7 @@
                     <div class="collapsible-header"><i class="fa fa-plus" aria-hidden="true"></i></div>
                     <div class="collapsible-body">
                       <span>
-                        <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
-                          <div>
-                            <%= hidden_field_tag :lead_id, @application.id %>
-                          </div>
-                          <div class="form-group">
-                            <%= label_tag :notes %>
-                            <%= text_area_tag :notes %>
-                          </div>
-                          <div>
-                            <%= label_tag :date, "Date Invite Accepted" %>
-                            <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
-                          </div>
-                          <div>
-                            <%= submit_tag "Submit", class: "btn btn-info"%>
-                          </div>
-                        <% end %>
+                        <%= render partial: "interviews/new", locals: {user: @user, interviewable: @application} %>
                       </span>
                     </div>
                   </li>
@@ -116,25 +101,14 @@
                       </div>
                       <div class="collapsible-body">
                         <span>
-                          <%= form_tag "/users/#{@user.id}/interviews/#{interview.id}", method: :patch do %>
-                            <div class="form-group">
-                              <%= label_tag :notes %>
-                              <%= text_area_tag :notes, interview.notes %>
-                            </div>
-                            <div>
-                              <%= submit_tag "Submit", class: "btn btn-info"%>
-                            </div>
-                          <% end %>
+
                         </span>
                       </div>
                     </li>
                   </ul>
                 <% end %>
               <% elsif @application.submission %>
-                <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
-                  <div>
-                    <%= hidden_field_tag :lead_id, @application.id %>
-                  </div>
+                <%= form_tag "/users/#{@user.id}/applications/#{@application.id}/interviews", method: :post do %>
                   <div class="form-group">
                     <%= label_tag :notes %>
                     <%= text_area_tag :notes %>

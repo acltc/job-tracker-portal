@@ -4,16 +4,15 @@ class MeetingsController < ApplicationController
 
   def create
     @lead = Lead.find(params[:lead_id])
-    parsed_datetime = params[:date]["date(1i)"] + "-" + params[:date]["date(2i)"] + "-" + params[:date]["date(3i)"] + " " + params[:date]["date(4i)"] + ":" + params[:date]["date(5i)"]
 
     @meeting = Meeting.new(
-      date: parsed_datetime,
+      date: params[:date],
       lead_id: @lead.id,
       notes: params[:notes]
     )
 
     if @meeting.save
-      if @lead.update(last_action: parsed_datetime)
+      if @lead.update(last_action: params[:date])
         flash[:notice] = "Your lead status has been successfully updated."
         redirect_to user_lead_path(@user.id, @meeting.lead_id)
       else

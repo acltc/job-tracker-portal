@@ -5,7 +5,7 @@
       <div class="card">
         <div class="container">
           <div class="card-header">
-            <p class="card-date">Last Updated: <%= @lead.last_action.strftime("%B %u, %Y") %></p>
+            <p class="card-date">Last Updated: <%= @lead.last_action %></p>
             <p class="card-title"><%= @lead.name.upcase %></p>
           </div>
           <div class="card-content">
@@ -306,22 +306,7 @@
                     <div class="collapsible-header"><i class="fa fa-plus" aria-hidden="true"></i></div>
                     <div class="collapsible-body">
                       <span>
-                        <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
-                          <div>
-                            <%= hidden_field_tag :lead_id, @lead.id %>
-                          </div>
-                          <div class="form-group">
-                            <%= label_tag :notes %>
-                            <%= text_area_tag :notes %>
-                          </div>
-                          <div>
-                            <%= label_tag :date, "Date Invite Accepted" %>
-                            <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
-                          </div>
-                          <div>
-                            <%= submit_tag "Submit", class: "btn btn-info"%>
-                          </div>
-                        <% end %>
+                       <%= render partial: "interviews/new", locals: {user: @user, interviewable: @lead} %>
                       </span>
                     </div>
                   </li>

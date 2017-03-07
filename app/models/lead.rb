@@ -1,6 +1,6 @@
 class Lead < ApplicationRecord
   belongs_to :user
-  has_many :interviews, dependent: :delete_all
+  has_many :interviews, as: :interviewable, dependent: :delete_all
   has_one :invite, dependent: :delete
   has_one :connection, dependent: :delete
   has_many :emails, dependent: :delete_all

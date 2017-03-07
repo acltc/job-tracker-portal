@@ -1,5 +1,5 @@
 class Interview < ApplicationRecord
-  belongs_to :lead
+  belongs_to :interviewable, polymorphic: true
 
   def name
     'Interview'

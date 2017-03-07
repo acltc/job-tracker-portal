@@ -1,6 +1,6 @@
 class Application < ApplicationRecord
   belongs_to :user
-  has_many :interviews, dependent: :delete_all
+  has_many :interviews, as: :interviewable, dependent: :delete_all
   has_one :offer, dependent: :delete
   has_one :submission, dependent: :delete
 
