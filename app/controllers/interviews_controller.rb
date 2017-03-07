@@ -6,29 +6,6 @@ class InterviewsController < ApplicationController
     @interview = @interviewable.interviews.new(interview_params)
   end
 
-  # def create
-  #   if params[:lead_id]
-  #     @type = Lead.find(params[:lead_id])
-  #   else  
-  #     @type = Application.find(params[:application_id])
-  #   end
-
-  #   @interview = Interview.new(
-  #     date: params[:date],
-  #     notes: params[:notes], 
-  #     interviewable: @type
-  #   )
-
-  #   if @interview.save
-  #     if @lead.update(last_action: params[:date])
-  #       flash[:notice] = "Your lead status has been successfully updated."
-  #     end
-  #   else
-  #       flash[:alert] = "An error occured when updating your lead status. Please try again."
-  #   end
-  #   redirect_to user_lead_path(@user.id, @interview.lead_id)
-  # end
-
   def update
     @interview = Interview.find(params[:id])
 
