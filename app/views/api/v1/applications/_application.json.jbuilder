@@ -9,4 +9,4 @@ json.last_action application.last_action
 json.archived application.archived
 json.invite application.submission
 json.interviews application.interviews
-json.offer application.offer
+json.offers application.offers

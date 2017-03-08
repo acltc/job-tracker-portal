@@ -1,5 +1,5 @@
 class Offer < ApplicationRecord
-  belongs_to :lead
+  belongs_to :offerable, polymorphic: true
 
   def name
     'Offer'

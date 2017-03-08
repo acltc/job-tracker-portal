@@ -1,0 +1,2 @@
+module Applications::OffersHelper
+end

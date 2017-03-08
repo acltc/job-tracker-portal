@@ -63,7 +63,7 @@
         <li>
           <div class="collapsible-header">
             <% if @lead.invite %>
-              <span class="new badge" data-badge-caption=""><%= @lead.invite.date.strftime("%b %e") %></span>
+              <span class="new badge" data-badge-caption=""><%= @lead.invite.date %></span>
             <% end %>
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
             LinkedIn Invite Sent
@@ -98,7 +98,7 @@
         <li>
           <div class="collapsible-header">
             <% if @lead.connection %>
-              <span class="new badge" data-badge-caption=""><%= @lead.connection.date.strftime("%b %e") %></span>
+              <span class="new badge" data-badge-caption=""><%= @lead.connection.date %></span>
             <% end %>
             <i class="fa fa-user-plus" aria-hidden="true"></i>
             Connected On LinkedIn
@@ -138,7 +138,7 @@
                     </div>
                     <div>
                       <%= label_tag :date, "Date Invite Accepted" %>
-                      <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                      <%= text_field_tag :date, Date.today, class: "datepicker" %>
                     </div>
                     <div>
                       <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -154,7 +154,7 @@
         <li>
           <div class="collapsible-header">
             <% if @lead.emails.count > 0 %>
-              <span class="new badge" data-badge-caption=""><%= @lead.emails.last.date.strftime("%b %e") %></span>
+              <span class="new badge" data-badge-caption=""><%= @lead.emails.last.date %></span>
             <% end %>
             <i class="material-icons">question_answer</i>
             Sent Email
@@ -177,7 +177,7 @@
                           </div>
                           <div>
                             <%= label_tag :date, "Date Email Sent" %>
-                            <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                            <%= text_field_tag :date, Date.today, class: "datepicker" %>
                           </div>
                           <div>
                             <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -221,7 +221,7 @@
                   </div>
                   <div>
                     <%= label_tag :date, "Date Email Sent" %>
-                    <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                    <%= text_field_tag :date, Date.today, class: "datepicker" %>
                   </div>
                   <div>
                     <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -236,7 +236,7 @@
         <li>
           <div class="collapsible-header">
             <% if @lead.meeting %>
-              <span class="new badge" data-badge-caption=""><%= @lead.meeting.date.strftime("%b %e") %></span>
+              <span class="new badge" data-badge-caption=""><%= @lead.meeting.date %></span>
             <% end %>
             <i class="fa fa-map-marker" aria-hidden="true"></i>
             Set Meeting
@@ -277,7 +277,7 @@
                     </div>
                     <div>
                       <%= label_tag :date, "Date Invite Accepted" %>
-                      <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                      <%= text_field_tag :date, Date.today, class: "datepicker" %>
                     </div>
                     <div>
                       <%= submit_tag "Submit", class: "btn btn-info"%>
@@ -293,7 +293,7 @@
         <li>
           <div class="collapsible-header">
             <% if @lead.interviews.count > 0 %>
-              <span class="new badge" data-badge-caption=""><%= @lead.interviews.last.date.strftime("%b %e") %></span>
+              <span class="new badge" data-badge-caption=""><%= @lead.interviews.last.date %></span>
             <% end %>
             <i class="material-icons">question_answer</i>
             Set Interview
@@ -335,22 +335,7 @@
                   </ul>
                 <% end %>
               <% elsif @lead.meeting %>
-                <%= form_tag "/users/#{@user.id}/interviews", method: :post do %>
-                  <div>
-                    <%= hidden_field_tag :lead_id, @lead.id %>
-                  </div>
-                  <div class="form-group">
-                    <%= label_tag :notes %>
-                    <%= text_area_tag :notes %>
-                  </div>
-                  <div>
-                    <%= label_tag :date, "Date Invite Accepted" %>
-                    <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
-                  </div>
-                  <div>
-                    <%= submit_tag "Submit", class: "btn btn-info"%>
-                  </div>
-                <% end %>
+                <%= render partial: "interviews/new", locals: {user: @user, interviewable: @lead} %>
               <% else %>
                 <p>All prior steps will need to be completed before this step can be logged.</p>
               <% end %>
@@ -359,8 +344,8 @@
         </li>
         <li>
           <div class="collapsible-header">
-            <% if @lead.offer %>
-              <span class="new badge" data-badge-caption=""><%= @lead.offer.date.strftime("%b %e") %></span>
+            <% if @lead.offers.count > 0 %>
+              <span class="new badge" data-badge-caption=""><%= @lead.offers.first.date %></span>
             <% end %>
             <i class="fa fa-briefcase" aria-hidden="true"></i>
             Job Offer
@@ -368,17 +353,17 @@
           <div class="collapsible-body">
             <span>
               <div class="well">
-                <% if @lead.offer %>
+                <% if @lead.offers.count > 0 %>
                 <h3 class="center-align">Congratulations!</h3>
                 <ul class="collapsible" data-collapsible="accordion">
                   <li>
                     <div class="collapsible-header">
                       <span class="new badge lead-badge" data-badge-caption=""><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                      <%= @lead.offer.notes %>
+                      <%= @lead.offers.first.notes %>
                     </div>
                     <div class="collapsible-body">
                       <span>
-                        <%= form_tag "/users/#{@user.id}/offers/#{@lead.offer.id}", method: :patch do %>
+                        <%= form_tag "/users/#{@user.id}/offers/#{@lead.offers.first.id}", method: :patch do %>
                         <div class="row">
                           <div class="input-field">
                             <%= text_area_tag :notes, @lead.notes, class: "materialize-textarea" %>
@@ -412,7 +397,7 @@
                         <div class="row">
                           <div class="input-field">
                             <%= label_tag :first_day %>
-                            <%= text_field_tag :first_day, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
+                            <%= text_field_tag :first_day, Date.today, class: "datepicker" %>
                           </div>
                         </div>
                         <div class="row right-align">
@@ -424,42 +409,7 @@
                   </li>
                 </ul>
                 <% elsif @lead.interviews.count > 0 %>
-                  <%= form_tag "/users/#{@user.id}/offers", method: :post do %>
-                    <div>
-                      <%= hidden_field_tag :lead_id, @lead.id %>
-                    </div>
-                    <div class="form-group">
-                      <%= label_tag :notes %>
-                      <%= text_area_tag :notes %>
-                    </div>
-                    <div>
-                      <%= label_tag :date, "Date Invite Accepted" %>
-                      <%= text_field_tag :date, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
-                    </div>
-                    <div class="form-group">
-                      <%= label_tag :job_title %>
-                      <%= text_field_tag :job_title %>
-                    </div>
-                    <div class="form-group">
-                      <%= label_tag :company_name %>
-                      <%= text_field_tag :company_name %>
-                    </div>
-                    <div class="form-group">
-                      <%= label_tag :location %>
-                      <%= text_field_tag :location %>
-                    </div>
-                    <div class="form-group">
-                      <%= label_tag :starting_salary %>
-                      <%= text_field_tag :starting_salary %>
-                    </div>
-                    <div class="form-group">
-                      <%= label_tag :first_day %>
-                      <%= text_field_tag :first_day, Date.today.strftime("%B %u, %Y"), class: "datepicker" %>
-                    </div>
-                    <div>
-                      <%= submit_tag "Submit", class: "btn btn-info"%>
-                    </div>
-                  <% end %>
+                  <%= render partial: "offers/new", locals: {user: @user, offerable: @lead} %>
                 <% else %>
                   <p>All prior steps will need to be completed before this step can be logged.</p>
                 <% end %>

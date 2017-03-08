@@ -1,0 +1,37 @@
+<%= form_for [user, offerable, Offer.new] do |f| %>
+  <div class="input-field">
+    <%= f.text_field :job_title %>
+    <%= f.label :job_title, class: "active"%>
+  </div>
+  <div class="input-field">
+    <%= f.text_field :company_name %>
+    <%= f.label :company_name, class: "active"%>
+  </div>
+  <div class="input-field">
+    <%= f.text_field :location %>
+    <%= f.label :location, class: "active"%>
+  </div>
+  <div class="input-field">
+    <%= f.text_field :starting_salary %>
+    <%= f.label :starting_salary, class: "active"%>
+  </div>
+  <div class="input-field">
+    <%= f.text_field :status %>
+    <%= f.label :status, class: "active"%>
+  </div>
+  <div class="input-field">
+    <%= f.text_field :first_date, class: "datepicker" %>
+    <%= f.label :first_date, class: "active" %>
+  </div>
+  <div class="input-field">
+    <%= f.text_area :notes, class: "materialize-textarea" %>
+    <%= f.label :notes, class: "active" %>
+  </div>
+  <div class="input-field">
+    <%= f.text_field :date, class: "datepicker" %>
+    <%= f.label :date, class: "active" %>
+  </div>
+  <div class="row right-align">
+    <%= f.submit class: "btn waves-effect waves-light amber" %>
+  </div>
+<% end %>

@@ -3,32 +3,36 @@ class OffersController < ApplicationController
   before_action :set_user
 
   def create
-    @lead = Lead.find(params[:lead_id])
-
-    @offer = Offer.new(
-      date: params[:date,
-      lead_id: @lead.id,
-      notes: params[:notes],
-      company_name: params[:company_name],
-      job_title: params[:job_title],
-      location: params[:location],
-      starting_salary: params[:starting_salary],
-      first_date: params[:first_date]
-    )
-
-    if @offer.save
-      if @lead.update(last_action: params[:date])
-        flash[:notice] = "Your lead status has been successfully updated."
-        redirect_to user_lead_path(@user.id, @offer.lead_id)
-      else
-        flash[:alert] = "An error occured when updating your lead status. Please try again."
-        redirect_to user_lead_path(@user.id, @offer.lead_id)
-      end
-    else
-      flash[:alert] = "An error occured when updating your lead status. Please try again."
-      redirect_to user_lead_path(@user.id, @offer.lead_id)
-    end
+    @offer = @offerable.offers.new(offer_params)
   end
+
+  # def create
+  #   @lead = Lead.find(params[:lead_id])
+
+  #   @offer = Offer.new(
+  #     date: params[:date,
+  #     lead_id: @lead.id,
+  #     notes: params[:notes],
+  #     company_name: params[:company_name],
+  #     job_title: params[:job_title],
+  #     location: params[:location],
+  #     starting_salary: params[:starting_salary],
+  #     first_date: params[:first_date]
+  #   )
+
+  #   if @offer.save
+  #     if @lead.update(last_action: params[:date])
+  #       flash[:notice] = "Your lead status has been successfully updated."
+  #       redirect_to user_lead_path(@user.id, @offer.lead_id)
+  #     else
+  #       flash[:alert] = "An error occured when updating your lead status. Please try again."
+  #       redirect_to user_lead_path(@user.id, @offer.lead_id)
+  #     end
+  #   else
+  #     flash[:alert] = "An error occured when updating your lead status. Please try again."
+  #     redirect_to user_lead_path(@user.id, @offer.lead_id)
+  #   end
+  # end
 
   def update
     @offer = Offer.find(params[:id])
@@ -58,5 +62,9 @@ class OffersController < ApplicationController
      flash[:alert] = "You are not authorized to view this page"
      redirect_to root_path
    end
+  end
+
+  def offer_params
+    params.require(:offer).permit(:notes, :date, :status, :job_title, :company_name, :location, :starting_salary, :first_date)
   end
 end

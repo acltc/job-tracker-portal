@@ -9,9 +9,9 @@ class Applications::InterviewsController < InterviewsController
       if @application.update(last_action: @interview.date)
         flash[:notice] = "Application status has been successfully updated!"
       else
-        flash[:alert] = "An error occured when updating your lead status. Please try again."
+        flash[:alert] = "An error occured when updating your application status. Please try again."
       end
-      redirect_to user_lead_path(@user.id, @interview.interviewable_id)
+      redirect_to user_application_path(@user.id, @interview.interviewable_id)
     end
   end
 

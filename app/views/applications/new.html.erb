@@ -14,7 +14,7 @@
   </div>
   <div>
     <%= label_tag :last_action, "Application submitted on: " %>
-    <%= text_field_tag :last_action, " ", class: "datepicker" %>
+    <%= text_field_tag :last_action, Date.today, class: "datepicker" %>
   </div>
   <div>
     <%= label_tag :submission_notes, "Submission Notes: " %>
@@ -27,7 +27,6 @@
 
 <script>
   $('.datepicker').pickadate({
-    format: 'mmmm d, yyyy'
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
   });

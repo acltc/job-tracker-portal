@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :applications do
       resources :submissions
       resources :interviews, module: :applications
-      resources :offers
+      resources :offers, module: :applications
     end
 
     resources :leads do
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       resources :emails
       resources :meetings
       resources :interviews, module: :leads
-      resources :offers
+      resources :offers, module: :leads
     end
 
     get '/dashboard' => 'pages#dashboard'

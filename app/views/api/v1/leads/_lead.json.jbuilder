@@ -15,4 +15,4 @@ json.connection lead.connection
 json.emails lead.emails
 json.meeting lead.meeting
 json.interviews lead.interviews
-json.offer lead.offer
+json.offers lead.offers

@@ -5,14 +5,14 @@ class Lead < ApplicationRecord
   has_one :connection, dependent: :delete
   has_many :emails, dependent: :delete_all
   has_one :meeting, dependent: :delete
-  has_one :offer, dependent: :delete
+  has_many :offers, as: :offerable, dependent: :delete_all
 
   def last_action_friendly
-    last_action.strftime("%b %e, %Y -- %l:%M%P")
+    last_action
   end
 
   def last_action_date_only
-    last_action.strftime("%b %e, %Y")
+    last_action
   end
 
   def notes_preview
@@ -25,8 +25,8 @@ class Lead < ApplicationRecord
   end
 
   def current_step
-    if offer
-      return offer.name
+    if offers.any?
+      return offer.first.name
     elsif interviews.any?
       return interviews.first.name
     elsif meeting
