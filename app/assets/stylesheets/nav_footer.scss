@@ -1,0 +1,74 @@
+@import 'colors';
+
+
+/********************** NAV BAR **********************/
+nav {
+  background-color: $dk-grey;
+}
+
+nav.navbar.navbar-default {
+  margin-bottom: 0;
+}
+
+.brand-logo {
+  height: inherit;
+}
+.logo-img {
+  padding-right: 10px;
+}
+
+.icon {
+  padding-right: 5px;
+}
+
+.icon.lead, .icon.app {
+  color: $blue;
+}
+
+nav a.lead:hover {
+  color: $teal;
+
+  .icon.lead {
+    color: $teal;
+  }
+}
+
+nav a.app:hover {
+  color: $orange;
+  
+  .icon.app {
+    color: $orange;
+  }
+}
+/******************** END NAV BAR ********************/
+
+
+
+/******************* STICKY FOOTER *******************/
+ body {
+   display: flex;
+   min-height: 100vh;
+   flex-direction: column;
+ }
+
+ main {
+   flex: 1 0 auto;
+ }
+ /***************** END STICKY FOOTER *****************/
+
+
+
+ /********************** FOOTER **********************/
+.page-footer {
+  background-color: $md-grey !important;
+}
+
+.footer-copyright {
+  background-color: $dk-grey !important;
+}
+
+.footer-link {
+  color: $blue;
+  font-weight: bold;
+}
+ /********************* END FOOTER *********************/

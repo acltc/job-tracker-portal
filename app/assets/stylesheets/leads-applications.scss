@@ -1,4 +1,46 @@
-@import "_variables";
+@import 'colors';
+
+/******************** NEW LEAD/APP ********************/
+.contact-tooltip {
+  color: $teal;
+  i {
+    font-size: 1rem;
+  }
+
+  i:hover {
+    color: $blue;
+  }
+}
+.lead-icon {
+  color: $teal;
+}
+
+.app-icon {
+  color: $orange;
+}
+
+.lt-grey-bg {
+  background-color: rgba($lt-grey, .1);
+  border: 1px solid $dk-grey;
+}
+
+.form-headline {
+  margin-bottom: 20px;
+}
+
+.submit-btn-lead, {
+  background-color: $teal;
+}
+
+.submit-btn-app {
+  background-color: $orange;
+}
+
+.submit-btn-lead:hover, .submit-btn-app:hover {
+  background-color: $blue;
+}
+/****************** END NEW LEAD/APP ******************/
+
 
 /********** LEAD SHOW CONTACT CARD **********/
 .card-date {
@@ -21,6 +63,23 @@
 }
 
 /********** LEAD SHOW STATUS ACCORDION **********/
+.title {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+i.status {
+  font-size: 1.5rem;
+}
+
+.status.divider {
+  margin-top: 9px;
+}
+
+.secondary-content:hover {
+  color: red;
+}
+
 .lead-show {
   padding-top: 60px;
 }
@@ -104,28 +163,3 @@ div.panel.sub {
   padding-bottom: 19px;
 }
 
-
-.picker__weekday-display {
-  background-color: $primary-color-dark !important;
-}
-
-.picker__date-display {
-  background-color: $primary-color !important;
-}
-
-.picker__nav--prev:hover, .picker__nav--next:hover {
-  background: rgba($accent-color, .3) !important;
-}
-
-.picker__day.picker__day--today {
-  color: $accent-color !important;
-}
-
-.btn-flat.picker__today, .btn-flat.picker__close {
-  color: $accent-color !important;
-}
-
-.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
-  background-color: $accent-color !important;
-  color: #ffffff !important;
-}

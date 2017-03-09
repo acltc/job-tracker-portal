@@ -26,7 +26,7 @@ class Lead < ApplicationRecord
 
   def current_step
     if offers.any?
-      return offer.first.name
+      return offers.first.name
     elsif interviews.any?
       return interviews.first.name
     elsif meeting

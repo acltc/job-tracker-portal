@@ -10,47 +10,40 @@
   </head>
 
   <body>
-    <ul id="dropdown1" class="dropdown-content">
-      <% if current_admin %>
-        <li><%= link_to "Admin Log Out", "/admins/sign_out" %></li>
-      <% elsif current_user %>
-        <li><%= link_to "User Log Out", "/users/sign_out" %></li>
-      <% else %>
-        <li><%= link_to "Admin Sign In", "/admins/sign_in" %></li>
-        <li><%= link_to "User Sign In", "/users/sign_in" %></li>
-      <% end %>
-    </ul>
-    <nav class="primary-color-dark" role="navigation">
-      <div class="nav-wrapper container" data-turbolinks="false">
-        <a href="/" class="brand-logo">Job Tracker</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <% if current_user %>
-            <li><a href="/users/<%= current_user.id %>/applications/new"><i class="material-icons left">assignment</i>New Application</a></li>
-            <li><a href="/users/<%= current_user.id %>/leads/new"><i class="material-icons left">assignment_ind</i>New Lead</a></li>
-            <li><a href="/users/<%= current_user.id %>/dashboard">My Dashboard</a></li>
-          <% end %>
-          <!-- Dropdown Trigger -->
-          <li><a class="dropdown-button" href="#!" data-activates="dropdown1">My Account<i class="material-icons right">arrow_drop_down</i></a></li>
-        </ul>
-        <ul id="slide-out" class="side-nav">
-          <% if current_user %>
-            <li><a href="/users/<%= current_user.id %>/applications/new"><i class="material-icons left">assignment</i>New Application</a></li>
-            <li><a href="/users/<%= current_user.id %>/leads/new"><i class="material-icons left">assignment_ind</i>New Lead</a></li>
-            <li><a href="/users/<%= current_user.id %>/leads">My Dashboard</a></li>
-          <% end %>
-          <li><a class="dropdown-button" href="#!" data-activates="dropdown2">My Account<i class="material-icons right">arrow_drop_down</i></a></li>
-          <ul id="dropdown2" class="dropdown-content">
-            <% if current_admin %>
-              <li><%= link_to "Admin Log Out", "/admins/sign_out" %></li>
-            <% elsif current_user %>
-              <li><%= link_to "User Log Out", "/users/sign_out" %></li>
-            <% else %>
+    <nav>
+      <div class="nav-wrapper container">
+        <a href="/"><img class="logo-img" src="<%= image_path('actualize_icon.png') %>"></a><a href="/" class="brand-logo">Job Tracker</a>
+        <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+        <% if current_user %>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="/users/<%= current_user.id %>/leads/new" class="lead"><i class="fa fa-plus-circle icon lead" aria-hidden="true"></i>Lead</a></li>
+            <li><a href="/users/<%= current_user.id %>/applications/new" class="app"><i class="fa fa-plus-circle icon app" aria-hidden="true"></i>Application</a></li>
+            <li><a href="/users/<%= current_user.id %>/dashboard"><i class="fa fa-th icon" aria-hidden="true"></i>Dashboard</a></li>
+            <li><%= link_to "Log Out", "/users/sign_out" %></li>
+          </ul>
+          <ul class="side-nav" id="mobile-nav">
+            <li><a href="/users/<%= current_user.id %>/leads/new" class="lead"><i class="fa fa-plus-circle icon lead" aria-hidden="true"></i>Lead</a></li>
+            <li><a href="/users/<%= current_user.id %>/applications/new" class="app"><i class="fa fa-plus-circle icon app" aria-hidden="true"></i>Application</a></li>
+            <li><a href="/users/<%= current_user.id %>/dashboard"><i class="fa fa-th icon" aria-hidden="true"></i>Dashboard</a></li>
+            <li><%= link_to "Log Out", "/users/sign_out" %></li>
+          </ul>
+          <% elsif current_admin %>
+            <ul class="right hide-on-med-and-down">
+              <li><%= link_to "Log Out", "/admins/sign_out" %></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><%= link_to "Log Out", "/admins/sign_out" %></li>
+            </ul>
+          <% else %>
+            <ul class="right hide-on-med-and-down">
               <li><%= link_to "Admin Sign In", "/admins/sign_in" %></li>
               <li><%= link_to "User Sign In", "/users/sign_in" %></li>
-            <% end %>
-          </ul>
-        </ul>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><%= link_to "Admin Sign In", "/admins/sign_in" %></li>
+              <li><%= link_to "User Sign In", "/users/sign_in" %></li>
+            </ul>
+        <% end %>
       </div>
     </nav>
     <main>
@@ -70,8 +63,8 @@
     </main>
     <footer class="page-footer primary-color">
       <div class="footer-copyright">
-        <div class="container">
-          Made by <a class="white-text" href="http://materializecss.com">Materialize</a>
+        <div class="container center-align">
+        <i class="fa fa-copyright icon" aria-hidden="true"></i><a class="footer-link" href="http://anyonecanlearntocode.com">Actualize</a>
         </div>
       </div>
     </footer>

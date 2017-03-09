@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require materialize-sprockets
+//= require materialize
 //= require vue
 //= require lodash.min
 //= require_tree .

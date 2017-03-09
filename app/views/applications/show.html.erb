@@ -32,14 +32,13 @@
         </div>
       </div>
     </div>
-  <!-- END LEAD INFORMATION -->
-
-    <div class="col s12 m12 l6">
+  <!-- END APPLICATION INFORMATION -->
+<div class="col s12 m12 l6">
       <ul class="collapsible popout" data-collapsible="expandable">
         <li>
           <div class="collapsible-header">
             <% if @application.submission %>
-              <span class="new badge" data-badge-caption=""><%= @application.submission.date %></span>
+              <span class="new badge red" data-badge-caption=""><%= @application.submission.date %></span>
             <% end %>
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
             LinkedIn Invite Sent

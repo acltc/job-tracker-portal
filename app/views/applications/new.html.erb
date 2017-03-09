@@ -1,27 +1,46 @@
-<h1>New Application</h1>
+<div class="row pt-30">
+  <h3 class="center-align"><i class="fa fa-file-text app-icon" aria-hidden="true"></i> New Application</h3>
+</div>
+
 <%= form_tag "/users/#{@user.id}/applications", method: :post do %>
-  <div>
-    <%= label_tag :company, "Company: " %>
-    <%= text_field_tag :company, @application.company %>
+  <div class="row pt-10">
+    <div>
+      <h5 class="center-align form-headline">Application Information</h5>
+    </div>
+    <div class="col s12 m8 offset-m2 lt-grey-bg">
+      <div class="input-field">
+        <input id="company" type="text" value="<%= @application.company %>">
+        <label class="active" for="company">Company</label>
+      </div>
+      <div class="input-field">
+        <input id="job_title" type="text" value="<%= @application.job_title %>">
+        <label class="active" for="job_title">Job Title</label>
+      </div>
+      <div class="input-field">
+        <textarea id="notes" class="materialize-textarea" value="<%= @application.notes %>"></textarea>
+        <label class="active" for="notes">Notes</label>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= label_tag :job_title, "Job Title: " %>
-    <%= text_field_tag :job_title, @application.job_title %>
+  <div class="row pt-10">
+    <div>
+      <h5 class="center-align form-headline">Submission Information</h5>
+    </div>
+    <div class="col s12 m8 offset-m2 lt-grey-bg">
+      <div class="input-field">
+        <input id="last_action" type="date" class="datepicker">
+        <label class="active" for="last_action" value="<%= @date %>">Application Submitted On</label>
+      </div>
+      <div class="input-field">
+        <textarea id="invite_notes" class="materialize-textarea" value="<%= @application.submission.notes %>"></textarea>
+        <label class="active" for="invite_notes">Submission Notes</label>
+      </div>
   </div>
-  <div>
-    <%= label_tag :notes, "Application Notes: " %>
-    <%= text_field_tag :notes, @application.notes %>
   </div>
-  <div>
-    <%= label_tag :last_action, "Application submitted on: " %>
-    <%= text_field_tag :last_action, Date.today, class: "datepicker" %>
-  </div>
-  <div>
-    <%= label_tag :submission_notes, "Submission Notes: " %>
-    <%= text_field_tag :submission_notes %>
-  </div>
-  <div>
-    <%= submit_tag "Submit" %>
+  <div class="row right-align pt-10">
+    <div class="col s12 m8 offset-m2">
+      <button class="btn submit-btn-app" type="submit" name="action">Submit</button>
+    </div>
   </div>
 <% end %>
 

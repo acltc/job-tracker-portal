@@ -8,7 +8,9 @@ class ApplicationsController < ApplicationController
 
   def new
     gon.user_id = params[:user_id]
+    @date = Date.today
     @application = Application.new
+    @application.submission = Submission.new
   end
 
   def create

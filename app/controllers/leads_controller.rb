@@ -9,6 +9,7 @@ class LeadsController < ApplicationController
   def new
     gon.user_id = params[:user_id]
     @lead = Lead.new
+    @lead.invite = Invite.new
   end
 
   def create
